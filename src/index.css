@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 180 130 40;
+    --primary-light: 212 175 55;
+    --primary-dark: 150 105 25;
+    --secondary: 248 250 252;
+    --dark: 30 41 59;
+    --text-main: 30 41 59;
+    --bg-main: 255 255 255;
+    --bg-card: 248 250 252;
+    --border-main: 226 232 240;
+    --text-muted: 100 116 139;
+    --nav-bg: 26 26 30;
+    --accent: 16 185 129;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: rgb(var(--bg-main));
+    color: rgb(var(--text-main));
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background-color: rgb(var(--primary));
+    color: white;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-primary-dark transition-all text-sm shadow-sm hover:shadow-md active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply bg-white border border-border-main text-dark px-6 py-2.5 rounded-lg font-semibold hover:bg-slate-50 transition-all text-sm;
+  }
+
+  .card {
+    @apply bg-white rounded-xl border border-border-main shadow-sm;
+  }
+
+  .sidebar-link {
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 text-sm relative overflow-hidden;
+  }
+
+  .sidebar-link-active {
+    @apply bg-white/15 text-white font-semibold;
+  }
+
+  .luxury-input {
+    @apply w-full bg-white border border-border-main rounded-lg px-4 py-3 text-sm outline-none text-dark placeholder-muted focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all;
+  }
+
+  .table-header {
+    @apply text-xs font-semibold text-muted uppercase tracking-wider;
+  }
+
+  .table-row {
+    @apply border-b border-border-main hover:bg-slate-50 transition-colors;
+  }
+
+  .stat-card {
+    @apply bg-white rounded-xl border border-border-main p-6 shadow-sm;
+  }
+
+  .badge {
+    @apply px-2.5 py-1 rounded-full text-xs font-semibold;
+  }
+
+  .badge-success {
+    @apply bg-emerald-50 text-emerald-700;
+  }
+
+  .badge-warning {
+    @apply bg-amber-50 text-amber-700;
+  }
+
+  .badge-danger {
+    @apply bg-red-50 text-red-700;
+  }
+
+  .badge-info {
+    @apply bg-blue-50 text-blue-700;
+  }
+
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center;
+  }
+
+  .modal-content {
+    @apply bg-white rounded-2xl shadow-2xl border border-border-main max-h-[90vh] overflow-y-auto;
+  }
+}
