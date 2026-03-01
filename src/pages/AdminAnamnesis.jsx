@@ -11,14 +11,14 @@ const AdminAnamnesis = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isViewOpen, setIsViewOpen] = useState(false);
   const [selected, setSelected] = useState(null);
-  const [formData, setFormData] = useState({ client_id: '', client_name: '', allergies: '', medications: '', health_conditions: '', skin_type: '', nail_conditions: '', preferences: '', notes: '' });
+  const [formData, setFormData] = useState({ client_id: '', client_name: '', allergies: '', medications: '', health_conditions: '', skin_type: '', beard_hair_conditions: '', preferences: '', notes: '' });
 
   const fetchData = async () => { setLoading(true); try { const [r, c] = await Promise.all([supabase.from('anamnesis').select('*').order('created_at', { ascending: false }), supabase.from('clients').select('id, name')]); setRecords(r.data || []); setClients(c.data || []); } catch(e){} setLoading(false); };
   useEffect(() => { fetchData(); }, []);
 
   const handleSave = async (e) => { e.preventDefault(); const client = clients.find(c => c.id === formData.client_id); const payload = {...formData, client_name: client?.name || formData.client_name}; if(selected) { await supabase.from('anamnesis').update(payload).eq('id', selected.id); } else { await supabase.from('anamnesis').insert([payload]); } setIsModalOpen(false); setSelected(null); fetchData(); };
-  const openNew = () => { setSelected(null); setFormData({ client_id: '', client_name: '', allergies: '', medications: '', health_conditions: '', skin_type: '', nail_conditions: '', preferences: '', notes: '' }); setIsModalOpen(true); };
-  const openEdit = (r) => { setSelected(r); setFormData({ client_id: r.client_id||'', client_name: r.client_name||'', allergies: r.allergies||'', medications: r.medications||'', health_conditions: r.health_conditions||'', skin_type: r.skin_type||'', nail_conditions: r.nail_conditions||'', preferences: r.preferences||'', notes: r.notes||'' }); setIsModalOpen(true); };
+  const openNew = () => { setSelected(null); setFormData({ client_id: '', client_name: '', allergies: '', medications: '', health_conditions: '', skin_type: '', beard_hair_conditions: '', preferences: '', notes: '' }); setIsModalOpen(true); };
+  const openEdit = (r) => { setSelected(r); setFormData({ client_id: r.client_id||'', client_name: r.client_name||'', allergies: r.allergies||'', medications: r.medications||'', health_conditions: r.health_conditions||'', skin_type: r.skin_type||'', beard_hair_conditions: r.beard_hair_conditions||'', preferences: r.preferences||'', notes: r.notes||'' }); setIsModalOpen(true); };
   const openView = (r) => { setSelected(r); setIsViewOpen(true); };
 
   const filtered = records.filter(r => r.client_name?.toLowerCase().includes(search.toLowerCase()));
@@ -57,7 +57,7 @@ const AdminAnamnesis = () => {
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="modal-content w-full max-w-2xl mx-4" onClick={e => e.stopPropagation()}>
               <div className="flex items-center justify-between p-6 border-b border-border-main"><h2 className="text-lg font-bold text-dark">Ficha — {selected.client_name}</h2><button onClick={() => setIsViewOpen(false)} className="p-2 rounded-lg hover:bg-slate-100 text-muted"><X size={18} /></button></div>
               <div className="p-6 grid grid-cols-2 gap-6">
-                {[['Alergias',selected.allergies],['Medicamentos',selected.medications],['Condições de Saúde',selected.health_conditions],['Tipo de Pele',selected.skin_type],['Condições Unhas',selected.nail_conditions],['Preferências',selected.preferences]].map(([l,v]) => (
+                {[['Alergias',selected.allergies],['Medicamentos',selected.medications],['Condições de Saúde',selected.health_conditions],['Tipo de Pele',selected.skin_type],['Cabelo/Barba',selected.beard_hair_conditions],['Preferências',selected.preferences]].map(([l,v]) => (
                   <div key={l}><label className="text-xs font-medium text-muted uppercase">{l}</label><p className="text-sm font-medium text-dark mt-1">{v || '—'}</p></div>
                 ))}
                 <div className="col-span-2"><label className="text-xs font-medium text-muted uppercase">Observações</label><p className="text-sm font-medium text-dark mt-1">{selected.notes || '—'}</p></div>
@@ -84,7 +84,7 @@ const AdminAnamnesis = () => {
                     <div><label className="text-sm font-medium text-dark mb-1.5 block">Condições de Saúde</label><input value={formData.health_conditions} onChange={e => setFormData({...formData, health_conditions: e.target.value})} className="luxury-input" /></div>
                     <div><label className="text-sm font-medium text-dark mb-1.5 block">Tipo de Pele</label><select value={formData.skin_type} onChange={e => setFormData({...formData, skin_type: e.target.value})} className="luxury-input"><option value="">Selecionar</option><option value="Normal">Normal</option><option value="Seca">Seca</option><option value="Oleosa">Oleosa</option><option value="Mista">Mista</option><option value="Sensível">Sensível</option></select></div>
                   </div>
-                  <div><label className="text-sm font-medium text-dark mb-1.5 block">Condições das Unhas</label><input value={formData.nail_conditions} onChange={e => setFormData({...formData, nail_conditions: e.target.value})} className="luxury-input" placeholder="Ex: Unhas fracas, micose, etc." /></div>
+                  <div><label className="text-sm font-medium text-dark mb-1.5 block">Condições do Cabelo/Barba</label><input value={formData.beard_hair_conditions} onChange={e => setFormData({...formData, beard_hair_conditions: e.target.value})} className="luxury-input" placeholder="Ex: Queda de cabelo, caspa, dermatite, etc." /></div>
                   <div><label className="text-sm font-medium text-dark mb-1.5 block">Preferências</label><input value={formData.preferences} onChange={e => setFormData({...formData, preferences: e.target.value})} className="luxury-input" /></div>
                   <div><label className="text-sm font-medium text-dark mb-1.5 block">Notas</label><textarea value={formData.notes} onChange={e => setFormData({...formData, notes: e.target.value})} className="luxury-input h-20 resize-none" /></div>
                 </div>

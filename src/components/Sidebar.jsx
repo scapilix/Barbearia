@@ -114,7 +114,7 @@ const Sidebar = () => {
             <Scissors className="text-white" size={14} />
           </div>
           <h1 className="text-base font-bold text-white tracking-tight">
-            TO<span className="text-primary font-normal">Beauty</span>
+            TO<span className="text-primary font-normal">Barber</span>
           </h1>
         </div>
         

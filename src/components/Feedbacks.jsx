@@ -6,7 +6,7 @@ const reviews = [
   {
     name: 'Patrícia Duarte',
     role: 'Cliente Verificada',
-    text: 'A Manicure Russa mudou a saúde das minhas unhas. O detalhe e a perfeição que a Ana coloca no trabalho é algo que nunca vi antes. O salão é puro luxo!',
+    text: 'A barboterapia mudou o meu visual. O detalhe e a perfeição que a equipa coloca no trabalho é algo único. O espaço é puro conforto!',
     stars: 5,
     avatar: 'https://i.pravatar.cc/150?u=patricia'
   },

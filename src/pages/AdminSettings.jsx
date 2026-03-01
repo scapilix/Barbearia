@@ -9,7 +9,7 @@ const AdminSettings = () => {
   const [settings, setSettings] = useState({
     salon_name: 'TO Barber',
     phone: '+351 912 345 678',
-    email: 'info@tobeauty.pt',
+    email: 'info@tobarber.pt',
     address: 'Rua da Beleza, 123, Lisboa',
     opening_hours: '09:00 - 20:00',
     days_open: 'Segunda a Sábado',

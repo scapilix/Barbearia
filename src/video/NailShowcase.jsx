@@ -127,7 +127,7 @@ const Scene1 = ({ PHOTOS }) => (
           }}
         >
           Arte das{' '}
-          <span style={{ color: GOLD, fontStyle: 'italic' }}>Unhas</span>
+          <span style={{ color: GOLD, fontStyle: 'italic' }}>Barbearia</span>
         </h1>
       </FadeUp>
 
@@ -142,7 +142,7 @@ const Scene1 = ({ PHOTOS }) => (
             textAlign: 'center',
           }}
         >
-          Manicure Russa · Nail Art · Gel Extensions
+          Corte Clássico · Degrade Fade · Barboterapia
         </p>
       </FadeUp>
     </AbsoluteFill>

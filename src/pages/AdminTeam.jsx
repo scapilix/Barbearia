@@ -335,7 +335,7 @@ const AdminTeam = () => {
                   </div>
 
                   <div><label className="text-sm font-medium text-dark mb-1.5 block">Nome *</label><input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className="luxury-input" /></div>
-                  <div><label className="text-sm font-medium text-dark mb-1.5 block">Função</label><input value={formData.role} onChange={e => setFormData({ ...formData, role: e.target.value })} className="luxury-input" placeholder="Ex: Nail Designer, Esteticista..." /></div>
+                  <div><label className="text-sm font-medium text-dark mb-1.5 block">Função</label><input value={formData.role} onChange={e => setFormData({ ...formData, role: e.target.value })} className="luxury-input" placeholder="Ex: Barbeiro, Mestre Barbeiro..." /></div>
                   <div className="grid grid-cols-2 gap-4">
                     <div><label className="text-sm font-medium text-dark mb-1.5 block">Telefone</label><input value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} className="luxury-input" /></div>
                     <div><label className="text-sm font-medium text-dark mb-1.5 block">Email</label><input type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} className="luxury-input" /></div>

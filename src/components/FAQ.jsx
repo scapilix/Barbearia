@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     question: 'Têm serviços para noivas ou eventos?',
-    answer: 'Sim, dispomos de pacotes Bridal Styling exclusivos que incluem consultoria de imagem para unhas, prova de design e acompanhamento personalizado para garantir que as suas mãos brilham no grande dia.'
+    answer: 'Sim, dispomos de pacotes VIP Grooming exclusivos que incluem consultoria de imagem, prova de design facial e acompanhamento personalizado para garantir o alinhamento perfeito no grande dia.'
   },
   {
     question: 'Quanto tempo dura uma Manicure Russa?',
