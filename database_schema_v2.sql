@@ -7,7 +7,7 @@
 CREATE TABLE IF NOT EXISTS public.services (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
-  category TEXT DEFAULT 'Nails',
+  category TEXT DEFAULT 'Cabelo',
   duration INTEGER NOT NULL DEFAULT 60, -- duração em minutos
   price NUMERIC NOT NULL DEFAULT 0,
   description TEXT,
@@ -55,18 +55,22 @@ VALUES ('premium_salon_media', 'premium_salon_media', true)
 ON CONFLICT (id) DO NOTHING;
 
 -- Configurar Políticas de Storage para o Bucket (Permitir tudo para IPs anon/authenticated - simplificado)
+DROP POLICY IF EXISTS "Public Access" ON storage.objects;
 CREATE POLICY "Public Access" 
   ON storage.objects FOR SELECT 
   USING ( bucket_id = 'premium_salon_media' );
 
+DROP POLICY IF EXISTS "Allow Uploads" ON storage.objects;
 CREATE POLICY "Allow Uploads" 
   ON storage.objects FOR INSERT 
   WITH CHECK ( bucket_id = 'premium_salon_media' );
 
+DROP POLICY IF EXISTS "Allow Updates" ON storage.objects;
 CREATE POLICY "Allow Updates" 
   ON storage.objects FOR UPDATE 
   USING ( bucket_id = 'premium_salon_media' );
 
+DROP POLICY IF EXISTS "Allow Deletes" ON storage.objects;
 CREATE POLICY "Allow Deletes" 
   ON storage.objects FOR DELETE 
   USING ( bucket_id = 'premium_salon_media' );
@@ -77,15 +81,23 @@ CREATE POLICY "Allow Deletes"
 
 -- Serviços
 INSERT INTO public.services (name, category, duration, price, description) VALUES
-  ('Manicure Russa + Gel', 'Nails', 90, 45.00, 'Técnica impecável de cuticulagem profunda e alinhamento de gel.'),
-  ('Pedicure SPA', 'Feet', 60, 35.00, 'Banho de imersão, esfoliação e hidratação profunda.'),
-  ('Manutenção Acrílico', 'Nails', 120, 40.00, 'Refill de acrílico com tratamento e cor/nail art básica.'),
-  ('Verniz Gel', 'Nails', 45, 20.00, 'Estética perfeita com durabilidade até 3 semanas.')
+  ('Corte Clássico', 'Cabelo', 45, 15.00, 'Corte clássico à tesoura ou máquina com acabamento perfeito.'),
+  ('Barba com Toalha Quente', 'Barba', 45, 15.00, 'Barboterapia clássica com toalha quente, massagem e navalha.'),
+  ('Corte Fade + Barba', 'Combo', 90, 30.00, 'Combo completo com fade de excelência e barboterapia relaxante.'),
+  ('Platinado / Madeixas', 'Química', 120, 45.00, 'Descoloração e matização masculina com produtos premium.')
 ON CONFLICT DO NOTHING;
 
 -- Equipa
-INSERT INTO public.team (name, role, commission_rate, details) VALUES
-  ('Diana', 'Nail Artist (Fundadora)', 100, 'Especialista em Nail Art Avançada e formatos extremos.'),
-  ('Leticia Silva', 'Gestora & Manicure', 40, 'Especialista em tratamentos SPA e verniz gel clássico.'),
-  ('Rita Costa', 'Técnica de Acrílico', 50, 'Dominio exímio em alongamentos e unhas roídas.')
-ON CONFLICT DO NOTHING;
+INSERT INTO public.team (name, role, commission_rate, details, photo_url) VALUES
+  ('William', 'Mestre Barbeiro (Fundador)', 100, 'Especialista em cortes clássicos e fades precisos com tesoura.', 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=800&auto=format&fit=crop'),
+  ('Rodrigo', 'Barbeiro Sênior', 45, 'Especialista em barboterapia e design de barba com navalha.', 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop'),
+  ('Francisco', 'Barbeiro', 40, 'Domínio em cortes modernos, platinados e freestyle.', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop')
+ON CONFLICT (id) DO NOTHING;
+
+-- Atualizar Produtos com Fotos (Barbearia)
+UPDATE public.products SET photo_url = 'https://images.unsplash.com/photo-1599305090598-fe179d501227?q=80&w=600&auto=format&fit=crop' WHERE name ILIKE '%Pomada%';
+UPDATE public.products SET photo_url = 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=600&auto=format&fit=crop' WHERE name ILIKE '%Óleo%';
+UPDATE public.products SET photo_url = 'https://images.unsplash.com/photo-1621607512214-68297480165e?q=80&w=600&auto=format&fit=crop' WHERE name ILIKE '%Cera%';
+UPDATE public.products SET photo_url = 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?q=80&w=600&auto=format&fit=crop' WHERE name ILIKE '%Shampoo%';
+UPDATE public.products SET photo_url = 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=600&auto=format&fit=crop' WHERE name ILIKE '%Pente%';
+UPDATE public.products SET photo_url = 'https://images.unsplash.com/photo-1636906803792-710e2f5b66d7?q=80&w=600&auto=format&fit=crop' WHERE name ILIKE '%Navalhete%' OR name ILIKE '%Gilete%';

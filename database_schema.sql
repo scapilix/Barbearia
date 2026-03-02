@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS public.anamnesis (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   client_id UUID, client_name TEXT,
   allergies TEXT, medications TEXT, health_conditions TEXT,
-  skin_type TEXT, nail_conditions TEXT, preferences TEXT,
+  skin_type TEXT, scalp_conditions TEXT, preferences TEXT,
   notes TEXT, created_at TIMESTAMPTZ DEFAULT now()
 );
 
@@ -389,14 +389,14 @@ INSERT INTO public.expenses (description, category, amount, date, paid_to, notes
   ('Eletricidade - Fevereiro',         'utility',    195.00, '2026-02-05', 'EDP Comercial',       'Fatura nº 2026-0205'),
   ('Água - Fevereiro',                 'utility',     48.00, '2026-02-05', 'EPAL',                NULL),
   ('Internet Fibra - Fevereiro',       'utility',     38.00, '2026-02-03', 'NOS',                 'Contrato empresarial'),
-  ('Fornecedor Moyra - Géis e Bases',  'fornecedor', 520.00, '2026-02-04', 'Moyra Portugal Lda.', 'Encomenda trimestral - 15 géis + 8 bases'),
-  ('Fornecedor Staleks - Limas/Brocas','fornecedor', 145.00, '2026-02-06', 'Staleks Ibérica',     '200 limas + 5 brocas diamante'),
+  ('Fornecedor - Pomadas e Ceras',  'fornecedor', 520.00, '2026-02-04', 'Reuzel Portugal Lda.', 'Encomenda trimestral - Pomadas e Ceras'),
+  ('Fornecedor - Lâminas e Tesouras','fornecedor', 145.00, '2026-02-06', 'Lames & Tradition',     '200 lâminas + 5 tesouras'),
   ('Instagram Ads - Campanha Fev',     'marketing',  250.00, '2026-02-07', 'Meta Platforms',      'Campanha "Promoção Fevereiro"'),
   ('Seguro do Salão - Fevereiro',      'outros',     155.00, '2026-02-01', 'Fidelidade Seguros',  'Seguro multirriscos anual'),
   ('Produtos de Limpeza',              'fornecedor',  72.00, '2026-02-10', 'Makro Portugal',      'Desinfetantes + toalhas'),
   ('Manutenção Ar Condicionado',       'outros',     190.00, '2026-02-12', 'ClimaFrio Lda.',      'Revisão semestral'),
-  ('Fornecedor OPI - Óleos Cutículas', 'fornecedor', 310.00, '2026-02-14', 'OPI Portugal',        '50 frascos óleo + 30 cremes'),
-  ('Fornecedor CND - Vernizes Gel',    'fornecedor', 280.00, '2026-02-17', 'CND Shellac PT',      '20 cores novas colecção Primavera'),
+  ('Fornecedor - Óleos para Barba', 'fornecedor', 310.00, '2026-02-14', 'Proraso Portugal',        '50 frascos óleo + 30 bálsamos'),
+  ('Fornecedor - Shampoos e Géis',    'fornecedor', 280.00, '2026-02-17', 'American Crew PT',      'Shampoos premium e géis de barbear'),
   ('Google Ads - Campanha Fev',        'marketing',  180.00, '2026-02-18', 'Google Ireland Ltd.',  'Campanha pesquisa local'),
   ('Salário William',            'salario',   1200.00, '2026-02-25', 'William',       'Salário base Fevereiro'),
   ('Salário Rodrigo',               'salario',   1100.00, '2026-02-25', 'Rodrigo',          'Salário base Fevereiro'),
@@ -408,15 +408,15 @@ INSERT INTO public.expenses (description, category, amount, date, paid_to, notes
 -- === COMANDAS (Fev 2026) ===
 INSERT INTO public.orders (client_name, total_amount, status, payment_method, notes, created_at) VALUES
   ('Maria Oliveira',  35.00,  'fechada','mbway','Corte clássico','2026-02-02 09:00:00+00'),
-  ('Ana Pereira',     95.00,  'fechada','cartao','Nail art + pedicure','2026-02-02 10:30:00+00'),
+  ('Ana Pereira',     95.00,  'fechada','cartao','Corte Fade + Barba Completa','2026-02-02 10:30:00+00'),
   ('Cláudia Vieira',  70.00,  'fechada','cartao','Platinado','2026-02-03 09:00:00+00'),
   ('Sofia Costa',     80.00,  'fechada','dinheiro','Fade + produtos','2026-02-03 11:00:00+00'),
   ('Beatriz Santos',  40.00,  'fechada','mbway','Barba toalha quente','2026-02-04 09:30:00+00'),
   ('Inês Rodrigues',  35.00,  'fechada','cartao','Corte clássico','2026-02-05 09:00:00+00'),
-  ('Marta Ribeiro',   58.00,  'fechada','dinheiro','Verniz gel + óleo','2026-02-05 10:30:00+00'),
+  ('Marta Ribeiro',   58.00,  'fechada','dinheiro','Platinado + óleo','2026-02-05 10:30:00+00'),
   ('Joana Ferreira',  45.00,  'fechada','mbway','Fade','2026-02-06 09:00:00+00'),
   ('Carolina Lopes',  30.00,  'fechada','cartao','Barba simples','2026-02-06 11:00:00+00'),
-  ('Diana Martins',   85.00,  'fechada','mbway','Corte clássico + nail art','2026-02-09 09:00:00+00'),
+  ('Diana Martins',   85.00,  'fechada','mbway','Corte clássico + design de barba','2026-02-09 09:00:00+00'),
   ('Maria Oliveira',  50.00,  'fechada','cartao','Corte e barba','2026-02-09 10:30:00+00'),
   ('Ana Pereira',     65.00,  'fechada','cartao','Corte Criança','2026-02-10 09:00:00+00'),
   ('Maria Oliveira',  35.00,  'aberta', NULL,'Corte clássico - em serviço','2026-02-28 09:00:00+00'),
@@ -497,20 +497,20 @@ INSERT INTO public.goals (title, target_value, current_value, period, start_date
 
 -- === PACOTES ===
 INSERT INTO public.plans (name, description, price, sessions, validity_days, services_included) VALUES
-  ('Pacote Noiva',       'Preparação completa para o grande dia',      250.00, 5,  60, 'Corte Clássico, Barba com Toalha Quente, Corte Fade + Barba, Tratamento Mãos'),
+  ('Pacote Noivo',       'Preparação completa para o grande dia',      250.00, 5,  60, 'Corte Clássico, Barba com Toalha Quente, Corte Fade + Barba, Tratamento Capilar VIP'),
   ('Beauty Pass Mensal', 'Manutenção mensal com desconto',              90.00, 3,  30, 'Corte Clássico, Corte à Máquina'),
   ('Pacote Amiga VIP',   'Para 2 pessoas - ideal para amigas',        130.00, 4,  45, 'Corte Clássico x2, Barba com Toalha Quente x2'),
   ('Fidelidade Premium', 'Programa anual com benefícios exclusivos',   800.00, 24, 365, 'Todos os serviços com 20% desconto');
 
 -- === ANAMNESES ===
 INSERT INTO public.anamnesis (client_name, allergies, medications, health_conditions, skin_type, nail_conditions, preferences, notes) VALUES
-  ('Maria Oliveira',  'Alergia a acrilato',  'Nenhum',           'Saudável', 'Normal',   'Cabelo fracas',  'Prefere cores neutras', 'Aplicar base fortalecedora sempre'),
-  ('Ana Pereira',     'Nenhuma conhecida',   'Anti-histamínico', 'Rinite',   'Sensível', 'Normais',       'Gosta de nail art',     NULL),
-  ('Cláudia Vieira',  'Nenhuma',             'Nenhum',           'Saudável', 'Mista',    'Onicofagia',    'Quer deixar de roer',   'Tratamento de reforço recomendado'),
-  ('Sofia Costa',     'Sensível a acetona',  'Nenhum',           'Diabetes', 'Seca',     'Normais',       'Cores vibrantes',       'Usar removedor sem acetona'),
-  ('Beatriz Santos',  'Nenhuma',             'Nenhum',           'Saudável', 'Normal',   'Normais',       'Estilo minimalista',    NULL),
-  ('Inês Rodrigues',  'Nenhuma',             'Nenhum',           'Saudável', 'Normal',   'Estrias verticais', 'Verniz gel clássico', 'Aplicar tratamento anti-estrias'),
-  ('Diana Martins',   'Alergia a latéx',     'Nenhum',           'Saudável', 'Sensível', 'Normais',       'Nail art artística',    'Usar luvas de nitrilo');
+  ('Maria Oliveira',  'Nenhuma',  'Nenhum',           'Saudável', 'Normal',   'Queda de cabelo',  'Estilo clássico', 'Usar shampoo antiqueda'),
+  ('Ana Pereira',     'Nenhuma conhecida',   'Anti-histamínico', 'Rinite',   'Sensível', 'Caspa',       'Gosta de fades modernos',     NULL),
+  ('Cláudia Vieira',  'Nenhuma',             'Nenhum',           'Saudável', 'Mista',    'Oleoso',    'Estilo prático',   'Usar shampoo para oleosidade'),
+  ('Sofia Costa',     'Sensível a lâmina',  'Nenhum',           'Diabetes', 'Seca',     'Seco',       'Visual limpo',       'Usar espuma pele sensível'),
+  ('Beatriz Santos',  'Nenhuma',             'Nenhum',           'Saudável', 'Normal',   'Normal',       'Estilo minimalista',    NULL),
+  ('Inês Rodrigues',  'Nenhuma',             'Nenhum',           'Saudável', 'Normal',   'Fios quebradiços', 'Corte clássico', 'Aplicar hidratante capilar'),
+  ('Diana Martins',   'Alergia a latéx',     'Nenhum',           'Saudável', 'Sensível', 'Normal',       'Desenho freestyle',    'Usar luvas de nitrilo');
 
 -- ✅ CONCLUÍDO! Fevereiro 2026 totalmente populado.
 -- Total: 12 clientes, 12 serviços, 4 profissionais, 12 produtos

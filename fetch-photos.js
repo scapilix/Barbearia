@@ -15,15 +15,15 @@ async function fetchUnsplash(query) {
 }
 
 async function run() {
-  const manicure = await fetchUnsplash('manicure');
-  const salon = await fetchUnsplash('nail-salon');
-  const luxury = await fetchUnsplash('luxury-spa');
+  const manicure = await fetchUnsplash('barbershop');
+  const salon = await fetchUnsplash('haircut');
+  const luxury = await fetchUnsplash('beard');
   
-  console.log("--- MANICURE ---");
+  console.log("--- BARBERSHOP ---");
   console.log(manicure.join('\n'));
-  console.log("\n--- NAIL SALON ---");
+  console.log("\n--- HAIRCUT ---");
   console.log(salon.join('\n'));
-  console.log("\n--- LUXURY SPA ---");
+  console.log("\n--- BEARD ---");
   console.log(luxury.join('\n'));
 }
 

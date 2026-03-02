@@ -9,15 +9,15 @@ const faqs = [
   },
   {
     question: 'Como é garantida a higiene dos utensílios?',
-    answer: 'A sua segurança é a nossa prioridade. Utilizamos um autoclave de grau médico (Classe B) para esterilizar todos os instrumentos metálicos. Materiais como limas e paus de laranjeira são rigorosamente descartáveis e individuais.'
+    answer: 'A sua segurança é a nossa prioridade. Utilizamos um autoclave para esterilizar todos os instrumentos metálicos. As lâminas são rigorosamente descartáveis e de uso único por cliente.'
   },
   {
     question: 'Têm serviços para noivas ou eventos?',
     answer: 'Sim, dispomos de pacotes VIP Grooming exclusivos que incluem consultoria de imagem, prova de design facial e acompanhamento personalizado para garantir o alinhamento perfeito no grande dia.'
   },
   {
-    question: 'Quanto tempo dura uma Manicure Russa?',
-    answer: 'Dada a precisão e detalhe deste serviço, a duração média é de 90 minutos. Este tempo permite um tratamento profundo das cutículas e a aplicação técnica perfeita do reforço.'
+    question: 'Quanto tempo demora um Corte Fade + Barba?',
+    answer: 'Dada a precisão e detalhe deste serviço, a duração média é de 90 minutos. Este tempo permite um corte minucioso com fade perfeito e uma barboterapia relaxante completa.'
   }
 ];
 

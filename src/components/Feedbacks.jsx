@@ -13,14 +13,14 @@ const reviews = [
   {
     name: 'Margarida Santos',
     role: 'Cliente Habitual',
-    text: 'Melhor experiência de Spa Pedicure. O ambiente é tão calmo e elegante que me sinto num verdadeiro retiro. Recomendo vivamente!',
+    text: 'A barboterapia mudou o meu visual. O detalhe e a perfeição que a equipa coloca no trabalho é algo único. O espaço é puro conforto!',
     stars: 5,
     avatar: 'https://i.pravatar.cc/150?u=margarida'
   },
   {
     name: 'Carolina Silva',
     role: 'Cliente Verificada',
-    text: 'A nail art superou as minhas expectativas. Mostrei uma foto e o resultado ficou ainda melhor. Um serviço de excelência e muito profissionalismo.',
+    text: 'O fade e platinado superaram as minhas expectativas. Um serviço de excelência e muito profissionalismo.',
     stars: 5,
     avatar: 'https://i.pravatar.cc/150?u=carolina'
   }
@@ -34,7 +34,7 @@ const Feedbacks = () => {
           <div>
             <span className="text-primary font-bold tracking-[0.3em] text-xs uppercase mb-4 block">Testemunhos</span>
             <h2 className="font-serif text-4xl md:text-5xl mb-8 leading-tight">
-              O Que as Nossas <br />
+              O Que os Nossos <br />
               <i className="text-primary font-normal italic">Clientes Dizem</i>
             </h2>
             
