@@ -9,7 +9,6 @@ import {
   Series,
   Img,
 } from "remotion";
-import { Video } from "@remotion/media";
 
 const GOLD = "#E1AE2D";
 const DARK = "#0D0C0A";
@@ -44,25 +43,7 @@ const GoldLine = ({ delay = 0 }) => {
   return <div style={{ width, height: 1, background: GOLD, margin: "20px 0" }} />;
 };
 
-// ─── Reusable Video Scene ─────────────────────────────────────────
-const VideoScene = ({ src }) => {
-  return (
-    <AbsoluteFill>
-      <Video
-        src={src}
-        muted
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          filter: "brightness(0.35)",
-        }}
-      />
-    </AbsoluteFill>
-  );
-};
-
-// ─── Reusable Image Scene (Interior) with Ken Burns ───────────────
+// ─── Reusable Image Scene with Ken Burns ───────────────
 const ImageScene = ({ src }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
@@ -90,13 +71,13 @@ const ImageScene = ({ src }) => {
 
 // ─── Main Sequence Composition ────────────────────────────────────
 export const BarberShowcase = () => {
-  // URLs for 3 barber videos and 1 interior photo
-  const videos = [
-    "https://videos.pexels.com/video-files/3998429/3998429-hd_1920_1080_30fps.mp4",
-    "https://videos.pexels.com/video-files/7036666/7036666-uhd_2732_1440_25fps.mp4",
-    "https://videos.pexels.com/video-files/8533224/8533224-uhd_2560_1440_25fps.mp4",
+  // URLs for 4 barbershop photos (to bypass mp4 loading issues on Vercel)
+  const photos = [
+    "https://images.pexels.com/photos/1805600/pexels-photo-1805600.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    "https://images.pexels.com/photos/1319459/pexels-photo-1319459.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    "https://images.pexels.com/photos/2068884/pexels-photo-2068884.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    "https://images.pexels.com/photos/1319461/pexels-photo-1319461.jpeg?auto=compress&cs=tinysrgb&w=1920",
   ];
-  const interiorPhoto = "https://images.pexels.com/photos/1319461/pexels-photo-1319461.jpeg?auto=compress&cs=tinysrgb&w=1920";
 
   // Each scene lasts 150 frames (5 seconds at 30fps)
   const SCENE_DURATION = 150;
@@ -107,21 +88,20 @@ export const BarberShowcase = () => {
       {/* Background Media Sequence */}
       <AbsoluteFill>
         <Series>
-          {/* Transition between scenes with overlap if possible, but Series handles it clean */}
           <Series.Sequence durationInFrames={SCENE_DURATION}>
-            <VideoScene src={videos[0]} />
+            <ImageScene src={photos[0]} />
           </Series.Sequence>
           
           <Series.Sequence durationInFrames={SCENE_DURATION}>
-            <VideoScene src={videos[1]} />
+            <ImageScene src={photos[1]} />
           </Series.Sequence>
           
           <Series.Sequence durationInFrames={SCENE_DURATION}>
-            <VideoScene src={videos[2]} />
+            <ImageScene src={photos[2]} />
           </Series.Sequence>
 
           <Series.Sequence durationInFrames={SCENE_DURATION}>
-            <ImageScene src={interiorPhoto} />
+            <ImageScene src={photos[3]} />
           </Series.Sequence>
         </Series>
       </AbsoluteFill>
