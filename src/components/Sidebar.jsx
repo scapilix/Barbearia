@@ -58,7 +58,7 @@ const Sidebar = () => {
       items: [
         { name: 'Metas', icon: <Target />, path: '/admin/goals' },
         { name: 'Relatórios', icon: <BarChart3 />, path: '/admin/reports' },
-        { name: 'Franciscomneses', icon: <Stethoscope />, path: '/admin/anamnesis' },
+        { name: 'Anamneses', icon: <Stethoscope />, path: '/admin/anamnesis' },
       ]
     },
     {
