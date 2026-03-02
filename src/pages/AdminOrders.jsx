@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FileText, Plus, X, Search, DollarSign, User, CheckCircle, Clock, CreditCard, Scissors } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import CustomDatePicker from '../components/CustomDatePicker';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -93,10 +94,20 @@ const AdminOrders = () => {
           <input type="text" placeholder="Pesquisar cliente..." value={search} onChange={e => setSearch(e.target.value)} className="bg-transparent border-none outline-none text-sm w-full text-dark placeholder:text-muted" />
         </div>
         <div className="flex items-center gap-2">
-          <label className="text-xs text-muted font-medium">De:</label>
-          <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="px-3 py-2 rounded-md border border-border-main bg-white text-sm text-dark outline-none focus:ring-1 focus:ring-primary" />
-          <label className="text-xs text-muted font-medium ml-2">Até:</label>
-          <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="px-3 py-2 rounded-md border border-border-main bg-white text-sm text-dark outline-none focus:ring-1 focus:ring-primary" />
+          <div className="flex-1 w-44">
+            <CustomDatePicker 
+                value={startDate} 
+                onChange={setStartDate} 
+                placeholder="Data inicial" 
+            />
+          </div>
+          <div className="flex-1 w-44">
+            <CustomDatePicker 
+                value={endDate} 
+                onChange={setEndDate} 
+                placeholder="Data final" 
+            />
+          </div>
         </div>
       </div>
 

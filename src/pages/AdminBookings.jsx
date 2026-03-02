@@ -5,6 +5,7 @@ import {
   Calendar as CalendarIcon, ChevronLeft, ChevronRight, Plus, Clock, User, CheckCircle, XCircle, X, Eye, Filter, Settings
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import CustomDatePicker from '../components/CustomDatePicker';
 
 const AdminBookings = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -212,17 +213,18 @@ const AdminBookings = () => {
             <button onClick={goToToday} className="px-3 py-1 rounded-lg bg-primary/10 text-primary text-xs font-semibold hover:bg-primary/20 transition-colors">
               Hoje
             </button>
-            <input 
-              type="date" 
-              value={currentDate.toISOString().split('T')[0]} 
-              onChange={(e) => {
-                if (e.target.value) {
-                  const [y, m, d] = e.target.value.split('-');
-                  setCurrentDate(new Date(y, m - 1, d)); // Avoid timezone shifting
-                }
-              }}
-              className="px-2 py-1 rounded-lg border border-border-main bg-white text-xs text-dark outline-none focus:ring-1 focus:ring-primary h-[28px] cursor-pointer"
-            />
+            <div className="w-40 ml-2">
+              <CustomDatePicker 
+                value={currentDate.toISOString().split('T')[0]} 
+                onChange={(val) => {
+                  if (val) {
+                    const [y, m, d] = val.split('-');
+                    setCurrentDate(new Date(y, m - 1, d)); // Avoid timezone shifting
+                  }
+                }}
+                placeholder="Ir para data..."
+              />
+            </div>
           </div>
           <button onClick={nextWeek} className="p-2 rounded-lg hover:bg-slate-100 text-muted transition-colors">
             <ChevronRight size={20} />
