@@ -149,7 +149,14 @@ const AdminOrders = () => {
             </div>
           </div>
         )})}
-        {filtered.length === 0 && !loading && <div className="col-span-3 card p-12 text-center text-muted">A carregar...</div>}
+        {filtered.length === 0 && !loading && (
+          <div className="col-span-1 md:col-span-2 lg:col-span-3 card p-16 flex flex-col items-center justify-center text-center bg-white/50 border-dashed border-2">
+             <FileText size={48} className="text-slate-200 mb-4" />
+             <h3 className="text-slate-800 font-bold text-lg mb-2">Nenhuma Comanda</h3>
+             <p className="text-slate-500 text-sm max-w-sm mx-auto">Não foi encontrada nenhuma comanda para as datas ou pesquisa selecionada.</p>
+          </div>
+        )}
+        {loading && <div className="col-span-1 md:col-span-2 lg:col-span-3 p-12 text-center text-muted animate-pulse">A carregar comandas...</div>}
       </div>
 
       <AnimatePresence>

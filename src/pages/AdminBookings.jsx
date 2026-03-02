@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { supabase } from '../lib/supabase';
 import { 
-  Calendar as CalendarIcon, ChevronLeft, ChevronRight, Plus, Clock, User, CheckCircle, XCircle, X, Eye, Filter, Settings
+  Calendar as CalendarIcon, ChevronLeft, ChevronRight, Plus, Clock, User, CheckCircle, XCircle, X, Eye, Filter, Settings, Search
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import CustomDatePicker from '../components/CustomDatePicker';
@@ -29,6 +29,7 @@ const AdminBookings = () => {
   });
 
   const [filterTeamMember, setFilterTeamMember] = useState('');
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 60000);
@@ -201,7 +202,8 @@ const AdminBookings = () => {
       </div>
 
       {/* Header with Navigation + Filter */}
-      <div className="flex items-center justify-between">
+      {/* Header with Navigation */}
+      <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-4">
           <button onClick={prevWeek} className="p-2 rounded-lg hover:bg-slate-100 text-muted transition-colors">
             <ChevronLeft size={20} />
@@ -210,21 +212,6 @@ const AdminBookings = () => {
             <h1 className="text-xl font-bold text-dark">
               {weekDays[0] && `${weekDays[0].getDate()} - ${weekDays[weekDays.length-1]?.getDate()} ${monthNames[weekDays[0].getMonth()]} ${weekDays[0].getFullYear()}`}
             </h1>
-            <button onClick={goToToday} className="px-3 py-1 rounded-lg bg-primary/10 text-primary text-xs font-semibold hover:bg-primary/20 transition-colors">
-              Hoje
-            </button>
-            <div className="w-40 ml-2">
-              <CustomDatePicker 
-                value={currentDate.toISOString().split('T')[0]} 
-                onChange={(val) => {
-                  if (val) {
-                    const [y, m, d] = val.split('-');
-                    setCurrentDate(new Date(y, m - 1, d)); // Avoid timezone shifting
-                  }
-                }}
-                placeholder="Ir para data..."
-              />
-            </div>
           </div>
           <button onClick={nextWeek} className="p-2 rounded-lg hover:bg-slate-100 text-muted transition-colors">
             <ChevronRight size={20} />
@@ -232,17 +219,42 @@ const AdminBookings = () => {
         </div>
 
         <div className="flex items-center gap-2">
+          <button onClick={() => openNewBooking()} className="btn-primary flex items-center gap-2 text-xs">
+            <Plus size={14} /> Novo Agendamento
+          </button>
+        </div>
+      </div>
+
+      {/* Enhanced Filters Box (Matches Orders) */}
+      <div className="flex flex-wrap items-center gap-3 bg-white border border-border-main p-3 rounded-lg mb-4">
+        <div className="flex items-center gap-2 flex-1 min-w-[200px] px-3 py-2 bg-slate-50 rounded-md">
+          <Search className="w-4 h-4 text-muted" />
+          <input type="text" placeholder="Pesquisar cliente na agenda..." value={search} onChange={e => setSearch(e.target.value)} className="bg-transparent border-none outline-none text-sm w-full text-dark placeholder:text-muted" />
+        </div>
+        <div className="flex items-center gap-2">
+          <button onClick={goToToday} className="px-3 py-2 rounded-lg bg-primary/10 text-primary text-xs font-semibold hover:bg-primary/20 transition-colors h-[42px]">
+            Hoje
+          </button>
+          <div className="w-44">
+            <CustomDatePicker 
+              value={currentDate.toISOString().split('T')[0]} 
+              onChange={(val) => {
+                if (val) {
+                  const [y, m, d] = val.split('-');
+                  setCurrentDate(new Date(y, m - 1, d)); // Avoid timezone shifting
+                }
+              }}
+              placeholder="Ir para data..."
+            />
+          </div>
           <select
             value={filterTeamMember}
             onChange={(e) => setFilterTeamMember(e.target.value)}
-            className="px-3 py-2 rounded-lg border border-border-main bg-white text-sm text-dark outline-none focus:ring-2 focus:ring-primary/20"
+            className="px-3 py-2 rounded-lg border border-border-main bg-white text-sm text-dark outline-none focus:ring-1 focus:ring-primary h-[42px]"
           >
             <option value="">Todos os profissionais</option>
             {team.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
           </select>
-          <button onClick={() => openNewBooking()} className="btn-primary flex items-center gap-2 text-xs">
-            <Plus size={14} /> Novo
-          </button>
         </div>
       </div>
 
@@ -259,7 +271,7 @@ const AdminBookings = () => {
       )}
 
       {/* Calendar Grid */}
-      <div className="card overflow-hidden">
+      <div className="card overflow-hidden relative">
         {/* Professional columns header */}
         <div className="grid border-b border-border-main" style={{ gridTemplateColumns: '60px repeat(6, 1fr)' }}>
           <div className="p-3 border-r border-border-main"></div>
@@ -301,7 +313,8 @@ const AdminBookings = () => {
                   const dayBookings = bookings.filter(b => 
                     b.booking_date === dateStr && 
                     b.booking_time?.substring(0, 5) === time && 
-                    (!filterTeamMember || b.team_member_id === filterTeamMember)
+                    (!filterTeamMember || b.team_member_id === filterTeamMember) &&
+                    (!search || b.clients?.name?.toLowerCase().includes(search.toLowerCase()))
                   );
 
                   return (
@@ -339,6 +352,15 @@ const AdminBookings = () => {
             );
           })}
         </div>
+        
+        {/* Empty State Overlay */}
+        {bookings.length === 0 && !loading && (
+          <div className="absolute inset-x-0 top-[200px] mx-auto bg-white/95 backdrop-blur-sm shadow-xl border border-slate-100 p-8 rounded-2xl flex flex-col items-center justify-center z-20 pointer-events-none w-[350px] text-center">
+            <CalendarIcon size={40} className="text-slate-300 mb-4" />
+            <h3 className="text-slate-800 font-bold text-lg mb-2">Agenda Livre</h3>
+            <p className="text-sm text-slate-500">Não existem agendamentos para esta semana ou para a pesquisa indicada.</p>
+          </div>
+        )}
       </div>
 
       {/* Booking Modal */}
