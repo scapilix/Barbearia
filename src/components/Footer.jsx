@@ -7,14 +7,12 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
           {/* Brand Col */}
-          <div>
-            <div className="flex items-center gap-2 mb-6">
-              <span className="font-serif text-3xl italic tracking-wide text-dark">
-                TO <span className="text-primary not-italic font-medium">Barber</span>
-              </span>
+          <div className="space-y-8">
+            <div className="font-serif text-3xl font-bold tracking-tighter">
+              TO<span className="text-primary italic">Beauty</span>
             </div>
-            <p className="text-muted leading-relaxed mb-6 max-w-sm">
-              Tradição, estética e precisão. Elevamos o barbeio e corte a uma forma de arte num ambiente exclusivo.
+            <p className="text-muted text-sm leading-relaxed font-light">
+              Elevando a arte das Barba a um patamar de luxo e sofisticação. O seu destino premium para Corte russa e design exclusivo.
             </p>
             <div className="flex gap-4">
               {[Instagram, Youtube, Mail].map((Icon, idx) => (
@@ -57,7 +55,7 @@ const Footer = () => {
               </li>
               <li className="flex gap-4">
                 <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                <span>contact@tobarber.com</span>
+                <span>contact@tobeautysalon.com</span>
               </li>
             </ul>
           </div>
@@ -82,7 +80,7 @@ const Footer = () => {
         </div>
 
         <div className="pt-8 border-t border-border-main flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-muted font-bold uppercase tracking-widest">
-          <p>© 2026 TO Barber. Todos os direitos reservados.</p>
+          <p>© 2024 TO Barber Salon. Todos os direitos reservados.</p>
           <div className="flex gap-6 items-center flex-wrap justify-center">
             <a href="#" className="hover:text-primary">Privacidade</a>
             <a href="#" className="hover:text-primary">Termos</a>

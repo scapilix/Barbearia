@@ -8,31 +8,31 @@ const Services = () => {
 
   const services = [
     {
-      title: 'Corte Clássico',
-      price: '15€',
-      duration: '45 min',
-      description: 'Corte tradicional à tesoura ou máquina, com acabamento perfeito e styling.',
+      title: 'Corte Russa',
+      price: '65€',
+      duration: '90 min',
+      description: 'Cuidado profundo das cutículas e reforço da unha natural para resultados impecáveis e duradouros.',
       image: images.service_1
     },
     {
-      title: 'Corte Degradê / Fade',
-      price: '18€',
-      duration: '45 min',
-      description: 'Corte moderno com transição suave (fade) na navalha e finalização de topo.',
+      title: 'Extensões em Gel',
+      price: '85€',
+      duration: '120 min',
+      description: 'Extensões esculpidas com precisão para o comprimento e formato dos seus sonhos.',
       image: images.service_2
     },
     {
-      title: 'Barba com Toalha Quente',
-      price: '15€',
-      duration: '45 min',
-      description: 'Ritual clássico de barboterapia com toalha quente, espuma aromática e massagem facial.',
+      title: 'Barber Art Artistry',
+      price: 'A partir de 15€',
+      duration: '30+ min',
+      description: 'Designs manuais exclusivos, pedrarias luxuosas e texturas artísticas personalizadas.',
       image: images.service_3
     },
     {
-      title: 'Combo Corte + Barba',
-      price: '30€',
-      duration: '90 min',
-      description: 'A experiência completa de cuidado masculino com corte detalhado e barboterapia.',
+      title: 'Spa Máquina',
+      price: '55€',
+      duration: '75 min',
+      description: 'Terapia completa para os pés com esfoliação premium e massagem relaxante.',
       image: images.service_4
     }
   ];
@@ -44,12 +44,12 @@ const Services = () => {
           <div className="max-w-xl">
             <span className="text-primary font-bold tracking-[0.3em] text-xs uppercase mb-4 block">Os Nossos Serviços</span>
             <h2 className="font-serif text-4xl md:text-5xl leading-tight">
-              Uma Experiência Clássica de <br />
-              <i className="text-primary font-normal italic">Puro Cuidado</i>
+              Uma Experiência Tátil de <br />
+              <i className="text-primary font-normal italic">Puro Luxo</i>
             </h2>
           </div>
           <p className="text-muted max-w-sm mb-2 text-sm">
-            Cada serviço é adaptado ao seu estilo, utilizando apenas barboterapia e pomadas das melhores marcas do mercado.
+            Cada serviço é adaptado às suas necessidades individuais, utilizando apenas os melhores produtos do mercado mundial.
           </p>
         </div>
 

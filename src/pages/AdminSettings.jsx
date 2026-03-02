@@ -1,18 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Settings, Clock, Palette, Bell, Save, Check, Image as ImageIcon, Upload, RotateCcw } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Settings, Clock, Palette, Bell, Save, Check } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { applyPrimaryColor } from '../lib/colorUtils';
-import { useImage } from '../hooks/useImage';
 
 const AdminSettings = () => {
   const [activeTab, setActiveTab] = useState('general');
   const [saved, setSaved] = useState(false);
-  const { images, updateImage, resetImages, defaultImages } = useImage();
-  const fileInputRefs = useRef({});
   const [settings, setSettings] = useState({
     salon_name: 'TO Barber',
     phone: '+351 912 345 678',
-    email: 'info@tobarber.pt',
+    email: 'info@tobeauty.pt',
     address: 'Rua da Beleza, 123, Lisboa',
     opening_hours: '09:00 - 20:00',
     days_open: 'Segunda a Sábado',
@@ -92,73 +89,7 @@ const AdminSettings = () => {
     { id: 'booking', label: 'Agendamento', icon: <Clock size={16} /> },
     { id: 'notifications', label: 'Notificações', icon: <Bell size={16} /> },
     { id: 'appearance', label: 'Aparência', icon: <Palette size={16} /> },
-    { id: 'images', label: 'Imagens do Site', icon: <ImageIcon size={16} /> },
   ];
-
-  // Helper function to compress and encode image to base64
-  const compressImage = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (event) => {
-        const img = new Image();
-        img.src = event.target.result;
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          let width = img.width;
-          let height = img.height;
-          
-          // Max dimension to prevent huge payloads
-          const MAX_SIZE = 1200;
-          if (width > height && width > MAX_SIZE) {
-            height *= MAX_SIZE / width;
-            width = MAX_SIZE;
-          } else if (height > MAX_SIZE) {
-            width *= MAX_SIZE / height;
-            height = MAX_SIZE;
-          }
-          
-          canvas.width = Math.round(width);
-          canvas.height = Math.round(height);
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-          
-          // Compress to JPEG with 0.7 quality to fit under Supabase 1MB API limit
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
-          resolve(dataUrl);
-        };
-        img.onerror = (err) => reject(err);
-      };
-      reader.onerror = (err) => reject(err);
-    });
-  };
-
-  const handleImageUpload = async (e, key) => {
-    const file = e.target.files[0];
-    if (file) {
-      if (file.size > 20 * 1024 * 1024) {
-        alert('A imagem é demasiado grande (máximo 20MB).');
-        return;
-      }
-      try {
-        const compressedBase64 = await compressImage(file);
-        updateImage(key, compressedBase64);
-        setSaved(true);
-        setTimeout(() => setSaved(false), 2000);
-      } catch (err) {
-        console.error("Compression failed", err);
-        alert('Erro ao processar imagem. Tente outra.');
-      }
-    }
-  };
-
-  const handleResetImages = async () => {
-    if (window.confirm('Tem a certeza que deseja restaurar todas as imagens originais?')) {
-      await resetImages();
-      setSaved(true);
-      setTimeout(() => setSaved(false), 2000);
-    }
-  };
 
   return (
     <div className="space-y-6">
@@ -254,61 +185,6 @@ const AdminSettings = () => {
                     <span className="badge bg-primary/10 text-primary px-3 py-1">{settings.primary_color}</span>
                   </div>
                 </div>
-              </div>
-            </div>
-          )}
-          {activeTab === 'images' && (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between border-b border-border-main pb-3">
-                <h3 className="text-lg font-semibold text-dark">Gestor de Imagens</h3>
-                <button 
-                  onClick={handleResetImages}
-                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"
-                >
-                  <RotateCcw size={16} />
-                  Restaurar Originais
-                </button>
-              </div>
-              
-              <p className="text-sm text-muted mb-4">
-                Altere as imagens que aparecem na página pública. Para melhores resultados, utilize imagens com boa resolução (mas inferiores a 5MB).
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {Object.keys(defaultImages).map((key) => (
-                  <div key={key} className="border border-border-main rounded-xl p-4 flex flex-col gap-4 bg-slate-50/50">
-                    <div className="flex justify-between items-center">
-                      <span className="font-medium text-sm text-dark capitalize">
-                        {key.replace('_', ' ')}
-                      </span>
-                    </div>
-                    
-                    <div className="relative aspect-video rounded-lg overflow-hidden bg-slate-200 border border-border-main">
-                      <img 
-                        src={images[key]} 
-                        alt={key} 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-
-                    <div className="flex justify-end">
-                      <input 
-                        type="file" 
-                        accept="image/*" 
-                        className="hidden" 
-                        ref={el => fileInputRefs.current[key] = el}
-                        onChange={(e) => handleImageUpload(e, key)}
-                      />
-                      <button 
-                        onClick={() => fileInputRefs.current[key]?.click()}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-border-main hover:bg-slate-100 text-sm font-medium transition-colors"
-                      >
-                        <Upload size={16} className="text-muted" />
-                        Alterar Imagem
-                      </button>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           )}

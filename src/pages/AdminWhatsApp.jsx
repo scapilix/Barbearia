@@ -3,10 +3,10 @@ import { MessageSquare, Send, Users, Clock, Settings, Plus, Phone, CheckCircle }
 
 const AdminWhatsApp = () => {
   const [templates, setTemplates] = useState([
-    { id: 1, name: 'Lembrete de Agendamento', message: 'Olá {{nome}}! 👋 Lembrete: o seu agendamento na TO Barber é amanhã às {{hora}}. Confirma? Responda SIM ou NÃO.', type: 'lembrete' },
-    { id: 2, name: 'Aniversário', message: 'Feliz Aniversário, {{nome}}! 🎂🎉 A TO Barber deseja um grande dia! Aproveite 15% de desconto no seu próximo serviço. 💈', type: 'marketing' },
-    { id: 3, name: 'Boas-Vindas', message: 'Olá {{nome}}! Bem-vindo à TO Barber! ✂️ Estamos felizes em tê-lo como cliente. Agende agora pelo nosso site!', type: 'onboarding' },
-    { id: 4, name: 'Promoção Mensal', message: '✨ Promoção Especial! {{nome}}, este mês temos 20% OFF em todos os serviços de Barboterapia. Agende já! 💈', type: 'marketing' },
+    { id: 1, name: 'Lembrete de Agendamento', message: 'Olá {{nome}}! 👋 Lembrete: o seu agendamento no TO Barber é amanhã às {{hora}}. Confirma? Responda SIM ou NÃO.', type: 'lembrete' },
+    { id: 2, name: 'Aniversário', message: 'Feliz Aniversário, {{nome}}! 🎂🎉 O TO Barber deseja um dia maravilhoso! Aproveite 15% de desconto no seu próximo serviço. 💅', type: 'marketing' },
+    { id: 3, name: 'Boas-Vindas', message: 'Olá {{nome}}! Bem-vinda ao TO Barber! 💅✨ Estamos felizes em tê-la como cliente. Agende agora pelo nosso site!', type: 'onboarding' },
+    { id: 4, name: 'Promoção Mensal', message: '✨ Promoção Especial! {{nome}}, este mês temos 20% OFF em todos os serviços de Barber Art. Agende já! 💅', type: 'marketing' },
   ]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editTemplate, setEditTemplate] = useState(null);

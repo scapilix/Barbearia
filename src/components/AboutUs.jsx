@@ -21,7 +21,7 @@ const AboutUs = () => {
             >
               <img
                 src={images.about_main}
-                alt="Barbershop Professional Cut"
+                alt="High-end Barber Artistry"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
               />
             </Motion.div>
@@ -51,27 +51,27 @@ const AboutUs = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <span className="text-primary font-bold tracking-[0.3em] text-xs uppercase mb-4 block">Sobre a TO Barber</span>
+            <span className="text-primary font-bold tracking-[0.3em] text-xs uppercase mb-4 block">Sobre o TO Barber</span>
             <h2 className="font-serif text-4xl md:text-5xl mb-8 leading-tight">
-              Onde a Tradição <br />
-              <i className="text-primary font-normal italic">Encontra a Modernidade</i>
+              Onde Cada Detalhe <br />
+              <i className="text-primary font-normal italic">Conta uma História</i>
             </h2>
             
             <div className="space-y-6 text-muted leading-relaxed mb-10">
               <p>
-                Fundada com a visão de redefinir o conceito de barbearia clássica, a TO Barber dedica-se à excelência em cada corte e no cuidado da barba. Especializamo-nos em fades perfeitos e no ritual milenar da toalha quente.
+                Fundado com a visão de redefinir o conceito de Corte de luxo, o TO Barber Salon dedica-se à excelência em cada gesto. Especializamo-nos na técnica russa e em Barber art de alta performance.
               </p>
               <p>
-                O nosso espaço foi projetado para ser o seu momento de descontração e renovação. Utilizamos apenas pomadas e óleos de classe mundial para garantir um resultado impecável e duradouro a cada visita.
+                O nosso espaço foi concebido para ser um santuário de beleza e relaxamento, onde a sofisticação encontra a inovação. Utilizamos apenas produtos de classe mundial para garantir resultados impecáveis e duradouros.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
               {[
-                'Mestres Barbeiros',
-                'Ambiente Vintage e Focado',
-                'Design Exclusivo',
-                'Técnicas Clássicas e Modernas'
+                'Corte Russa Certificada',
+                'Ambiente Premium e Seguro',
+                'Design Personalizado',
+                'Esterilização de Grau Médico'
               ].map((item) => (
                 <div key={item} className="flex items-center gap-3">
                   <CheckCircle2 className="text-primary w-5 h-5 flex-shrink-0" />

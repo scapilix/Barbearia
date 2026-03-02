@@ -91,7 +91,7 @@ const AdminServices = () => {
                 </div>
                 <div className="p-6 space-y-4">
                   <div><label className="text-sm font-medium text-dark mb-1.5 block">Nome *</label><input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="luxury-input" /></div>
-                  <div><label className="text-sm font-medium text-dark mb-1.5 block">Categoria</label><input value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="luxury-input" placeholder="Ex: Cabelo, Barba..." /></div>
+                  <div><label className="text-sm font-medium text-dark mb-1.5 block">Categoria</label><input value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="luxury-input" placeholder="Ex: Corte, Máquina..." /></div>
                   <div className="grid grid-cols-2 gap-4">
                     <div><label className="text-sm font-medium text-dark mb-1.5 block">Duração (min)</label><input type="number" value={formData.duration} onChange={e => setFormData({...formData, duration: Number(e.target.value)})} className="luxury-input" /></div>
                     <div><label className="text-sm font-medium text-dark mb-1.5 block">Preço (€)</label><input type="number" step="0.01" value={formData.price} onChange={e => setFormData({...formData, price: Number(e.target.value)})} className="luxury-input" /></div>

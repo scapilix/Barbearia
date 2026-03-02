@@ -47,7 +47,7 @@ const Navbar = () => {
           className="font-serif text-2xl font-bold tracking-tighter transition-colors duration-300"
           style={{ color: scrolled ? 'rgb(var(--text-main))' : '#fff' }}
         >
-          TO<span className="text-primary not-italic font-medium">Barber</span>
+          TO<span className="text-primary italic">Beauty</span>
         </Link>
 
         {/* Desktop Links */}

@@ -114,23 +114,7 @@ const AdminBookings = () => {
       if (selectedBooking) {
         await supabase.from('bookings').update(formData).eq('id', selectedBooking.id);
       } else {
-        const { data: newBooking, error } = await supabase.from('bookings').insert([formData]).select().single();
-        if (!error && newBooking) {
-          // Auto-create Comanda (Order) for new bookings
-          const clientData = clients.find(c => c.id === formData.client_id);
-          const serviceData = services.find(s => s.id === formData.service_id);
-          
-          if (clientData && serviceData) {
-            await supabase.from('orders').insert([{
-              client_name: clientData.name,
-              total_amount: Number(serviceData.price || 0),
-              status: 'aberta',
-              payment_method: 'dinheiro',
-              team_member_id: formData.team_member_id || null,
-              notes: `Agendamento Automático: ${formData.booking_date} ${formData.booking_time}`
-            }]);
-          }
-        }
+        await supabase.from('bookings').insert([formData]);
       }
       setIsModalOpen(false);
       setSelectedBooking(null);

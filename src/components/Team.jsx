@@ -81,7 +81,7 @@ const Team = () => {
                 >
                   <div className="aspect-[4/5] rounded-[32px] overflow-hidden mb-8 shadow-lg relative bg-secondary/50">
                     <img
-                      src={member.photo_url || 'https://images.pexels.com/photos/1805600/pexels-photo-1805600.jpeg?auto=compress&cs=tinysrgb&w=400'}
+                      src={member.photo_url || 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop'}
                       alt={member.name}
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
                     />

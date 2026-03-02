@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Calendar, Users, Scissors, Package, 
   Wallet, FileText, Target, BarChart3, Stethoscope, 
   ShoppingBag, Gift, MessageSquare, Share2, Settings, 
-  LogOut, Plus, UserPlus
+  LogOut, Plus, UserPlus, Image as ImageIcon
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -58,7 +58,7 @@ const Sidebar = () => {
       items: [
         { name: 'Metas', icon: <Target />, path: '/admin/goals' },
         { name: 'Relatórios', icon: <BarChart3 />, path: '/admin/reports' },
-        { name: 'Anamneses', icon: <Stethoscope />, path: '/admin/anamnesis' },
+        { name: 'Franciscomneses', icon: <Stethoscope />, path: '/admin/anamnesis' },
       ]
     },
     {
@@ -75,6 +75,7 @@ const Sidebar = () => {
       items: [
         { name: 'Agendamento Online', icon: <Share2 />, path: '/admin/online-booking' },
         { name: 'WhatsApp', icon: <MessageSquare />, path: '/admin/whatsapp' },
+        { name: 'Imagens do Site', icon: <ImageIcon />, path: '/admin/images' },
       ]
     }
   ];
@@ -114,7 +115,7 @@ const Sidebar = () => {
             <Scissors className="text-white" size={14} />
           </div>
           <h1 className="text-base font-bold text-white tracking-tight">
-            TO<span className="text-primary font-normal">Barber</span>
+            TO<span className="text-primary font-normal">Beauty</span>
           </h1>
         </div>
         

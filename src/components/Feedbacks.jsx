@@ -4,25 +4,25 @@ import { Star, Quote } from 'lucide-react';
 
 const reviews = [
   {
-    name: 'Tiago Ribeiro',
+    name: 'Patrícia Duarte',
     role: 'Cliente Verificada',
-    text: 'A barboterapia mudou o meu visual. O detalhe e a perfeição que a equipa coloca no trabalho é algo único. O espaço é puro conforto!',
+    text: 'A Corte Russa mudou a saúde das minhas Barba. O detalhe e a perfeição que a Francisco coloca no trabalho é algo que nunca vi antes. O salão é puro luxo!',
     stars: 5,
-    avatar: 'https://i.pravatar.cc/150?u=tiago'
+    avatar: 'https://i.pravatar.cc/150?u=patricia'
   },
   {
-    name: 'Gonçalo Martins',
+    name: 'Margarida Santos',
     role: 'Cliente Habitual',
-    text: 'A barboterapia mudou o meu visual. O detalhe e a perfeição que a equipa coloca no trabalho é algo único. O espaço é puro conforto!',
+    text: 'Melhor experiência de Spa Máquina. O ambiente é tão calmo e elegante que me sinto num verdadeiro retiro. Recomendo vivamente!',
     stars: 5,
-    avatar: 'https://i.pravatar.cc/150?u=goncalo'
+    avatar: 'https://i.pravatar.cc/150?u=margarida'
   },
   {
-    name: 'Carlos Almeida',
+    name: 'Carolina Silva',
     role: 'Cliente Verificada',
-    text: 'O fade e platinado superaram as minhas expectativas. Um serviço de excelência e muito profissionalismo.',
+    text: 'A Barber art superou as minhas expectativas. Mostrei uma foto e o resultado ficou ainda melhor. Um serviço de excelência e muito profissionalismo.',
     stars: 5,
-    avatar: 'https://i.pravatar.cc/150?u=carlos'
+    avatar: 'https://i.pravatar.cc/150?u=carolina'
   }
 ];
 
@@ -34,7 +34,7 @@ const Feedbacks = () => {
           <div>
             <span className="text-primary font-bold tracking-[0.3em] text-xs uppercase mb-4 block">Testemunhos</span>
             <h2 className="font-serif text-4xl md:text-5xl mb-8 leading-tight">
-              O Que os Nossos <br />
+              O Que as Nossas <br />
               <i className="text-primary font-normal italic">Clientes Dizem</i>
             </h2>
             
@@ -59,16 +59,16 @@ const Feedbacks = () => {
               </div>
               
               <p className="text-lg italic text-main leading-relaxed font-light mb-8 relative z-10">
-                "A TO Barber é mais do que uma barbearia, é um clube de cavalheiros elevado ao máximo nível. A atenção aos detalhes é incomparável."
+                "O TO Barber é mais do que um salão, é uma experiência de auto-cuidado elevada ao máximo nível. A atenção aos detalhes é incomparável."
               </p>
               
               <div className="flex items-center gap-4 relative z-10">
                 <div className="w-12 h-12 bg-primary rounded-full overflow-hidden">
-                  <img src="https://images.pexels.com/photos/896695/pexels-photo-896695.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Client" />
+                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&auto=format&fit=crop" alt="Client" />
                 </div>
                 <div>
-                  <div className="font-bold text-sm">Miguel Silva</div>
-                  <div className="text-[10px] text-primary font-bold uppercase tracking-widest">Empreendedor</div>
+                  <div className="font-bold text-sm">Helena Matos</div>
+                  <div className="text-[10px] text-primary font-bold uppercase tracking-widest">Fashion Curator</div>
                 </div>
               </div>
             </div>

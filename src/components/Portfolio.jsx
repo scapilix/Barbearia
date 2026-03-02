@@ -8,33 +8,33 @@ const Portfolio = () => {
   const portfolioImages = [
     {
       src: images.hero_bg1,
-      category: 'Corte Clássico',
-      title: 'Executive Cut'
+      category: 'Corte Russa',
+      title: 'Minimalist Nude'
     },
     {
       src: images.hero_bg2,
-      category: 'Fade',
-      title: 'Skin Fade'
+      category: 'Barber Art',
+      title: 'Emerald Luxury'
     },
     {
       src: images.hero_bg3,
-      category: 'Barboterapia',
-      title: 'Hot Towel Shave'
+      category: 'Extensões',
+      title: 'Stiletto Rose'
     },
     {
       src: images.hero_float1,
-      category: 'Corte Moderno',
-      title: 'Classic Pompadour'
+      category: 'Barber Art',
+      title: 'Golden Accents'
     },
     {
       src: images.hero_float2,
-      category: 'Infantil',
-      title: 'Kids Styling'
+      category: 'Máquina',
+      title: 'Classic Red'
     },
     {
       src: images.about_detail,
-      category: 'Barba',
-      title: 'Perfect Trim'
+      category: 'Corte Russa',
+      title: 'Perfect Finish'
     }
   ];
   return (
@@ -88,7 +88,7 @@ const Portfolio = () => {
         <p className="text-gray-500 text-sm uppercase tracking-[0.2em] mb-8">Siga-nos no Instagram para mais inspiração</p>
         <div className="flex justify-center gap-4">
           <div className="w-12 h-[1px] bg-primary/30 my-auto"></div>
-          <span className="font-serif italic text-2xl text-primary">@tobarber.official</span>
+          <span className="font-serif italic text-2xl text-primary">@tobeautysalon</span>
           <div className="w-12 h-[1px] bg-primary/30 my-auto"></div>
         </div>
       </div>

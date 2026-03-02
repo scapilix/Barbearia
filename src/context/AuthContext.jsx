@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check local storage for persistent login
-    const storedUser = localStorage.getItem('tobarber_user');
+    const storedUser = localStorage.getItem('tobeauty_user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
       };
 
       setUser(sessionUser);
-      localStorage.setItem('tobarber_user', JSON.stringify(sessionUser));
+      localStorage.setItem('tobeauty_user', JSON.stringify(sessionUser));
       return { success: true, user: sessionUser };
       
     } catch (err) {
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
       };
 
       setUser(sessionUser);
-      localStorage.setItem('tobarber_user', JSON.stringify(sessionUser));
+      localStorage.setItem('tobeauty_user', JSON.stringify(sessionUser));
       return { success: true, user: sessionUser };
 
     } catch (err) {
@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('tobarber_user');
+    localStorage.removeItem('tobeauty_user');
   };
 
   return (

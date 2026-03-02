@@ -317,7 +317,7 @@ const AdminClientes = () => {
                   {['info', 'historico', 'anamnese', 'financeiro'].map(tab => (
                     <button key={tab} onClick={() => setActiveTab(tab)}
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === tab ? 'bg-primary text-white' : 'text-muted hover:bg-slate-100'}`}>
-                      {tab === 'info' ? 'Informações' : tab === 'historico' ? 'Histórico' : tab === 'anamnese' ? 'Anamnese' : 'Financeiro'}
+                      {tab === 'info' ? 'Informações' : tab === 'historico' ? 'Histórico' : tab === 'anamnese' ? 'Franciscomnese' : 'Financeiro'}
                     </button>
                   ))}
                 </div>
@@ -362,7 +362,7 @@ const AdminClientes = () => {
                 {activeTab === 'anamnese' && (
                   <div className="text-center py-12 text-muted">
                     <Users size={40} className="mx-auto mb-3 opacity-30" />
-                    <p className="font-medium">Ficha de Anamnese</p>
+                    <p className="font-medium">Ficha de Franciscomnese</p>
                     <p className="text-sm mt-1">Dados clínicos e preferências do cliente</p>
                   </div>
                 )}

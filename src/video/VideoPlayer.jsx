@@ -3,8 +3,7 @@ import { Player } from '@remotion/player';
 import { BarberShowcase } from './BarberShowcase';
 import { useImage } from '../hooks/useImage';
 
-// 4 scenes * 150 frames = 600 frames (20 seconds at 30fps)
-const TOTAL_FRAMES = 600;
+const TOTAL_FRAMES = 414;
 
 const VideoPlayer = () => {
   const { images } = useImage();

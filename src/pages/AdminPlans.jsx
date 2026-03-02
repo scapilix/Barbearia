@@ -68,7 +68,7 @@ const AdminPlans = () => {
                     <div><label className="text-sm font-medium text-dark mb-1.5 block">Sessões</label><input type="number" value={formData.sessions} onChange={e => setFormData({...formData, sessions: Number(e.target.value)})} className="luxury-input" /></div>
                     <div><label className="text-sm font-medium text-dark mb-1.5 block">Validade (dias)</label><input type="number" value={formData.validity_days} onChange={e => setFormData({...formData, validity_days: Number(e.target.value)})} className="luxury-input" /></div>
                   </div>
-                  <div><label className="text-sm font-medium text-dark mb-1.5 block">Serviços Incluídos</label><input value={formData.services_included} onChange={e => setFormData({...formData, services_included: e.target.value})} className="luxury-input" placeholder="Ex: Corte Clássico, Barba Simples..." /></div>
+                  <div><label className="text-sm font-medium text-dark mb-1.5 block">Serviços Incluídos</label><input value={formData.services_included} onChange={e => setFormData({...formData, services_included: e.target.value})} className="luxury-input" placeholder="Ex: Corte, Máquina..." /></div>
                 </div>
                 <div className="flex justify-end gap-3 p-6 border-t border-border-main bg-slate-50 rounded-b-2xl"><button type="button" onClick={() => setIsModalOpen(false)} className="btn-secondary">Cancelar</button><button type="submit" className="btn-primary">Guardar</button></div>
               </form>

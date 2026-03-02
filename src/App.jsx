@@ -37,6 +37,7 @@ import AdminReports from './pages/AdminReports';
 import AdminAnamnesis from './pages/AdminAnamnesis';
 import AdminOnlineBooking from './pages/AdminOnlineBooking';
 import AdminWhatsApp from './pages/AdminWhatsApp';
+import AdminImages from './pages/AdminImages';
 
 const PublicPage = () => (
   <div className="animate-fade-in">
@@ -116,6 +117,7 @@ function App() {
             <Route path="anamnesis" element={<AdminAnamnesis />} />
             <Route path="online-booking" element={<AdminOnlineBooking />} />
             <Route path="whatsapp" element={<AdminWhatsApp />} />
+            <Route path="images" element={<AdminImages />} />
           </Route>
         </Routes>
       </ImageProvider>
