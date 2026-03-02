@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Player } from '@remotion/player';
-import { NailShowcase } from './NailShowcase';
+import { BarberShowcase } from './BarberShowcase';
 import { useImage } from '../hooks/useImage';
 
-const TOTAL_FRAMES = 414;
+// Use standard duration for a looping background video, Remotion videos need a finite duration
+const TOTAL_FRAMES = 1200; // 40 seconds at 30fps
 
 const VideoPlayer = () => {
   const { images } = useImage();
@@ -17,7 +18,7 @@ const VideoPlayer = () => {
 
   return (
     <Player
-      component={NailShowcase}
+      component={BarberShowcase}
       inputProps={{ images }}
       durationInFrames={TOTAL_FRAMES}
       compositionWidth={dims.w}
