@@ -9,6 +9,8 @@ const AdminOrders = () => {
   const [team, setTeam] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({ client_name: '', total_amount: 0, status: 'aberta', payment_method: 'dinheiro', notes: '', team_member_id: '' });
   
@@ -28,6 +30,8 @@ const AdminOrders = () => {
       if (!isAdmin && user?.id) {
         query = query.eq('team_member_id', user.id);
       }
+      if (startDate) query = query.gte('created_at', `${startDate}T00:00:00`);
+      if (endDate) query = query.lte('created_at', `${endDate}T23:59:59`);
 
       const { data } = await query; 
       setOrders(data || []); 
@@ -37,7 +41,7 @@ const AdminOrders = () => {
     setLoading(false); 
   };
 
-  useEffect(() => { fetchData(); }, [user]);
+  useEffect(() => { fetchData(); }, [user, startDate, endDate]);
 
   const handleSave = async (e) => { 
     e.preventDefault(); 
@@ -83,7 +87,18 @@ const AdminOrders = () => {
         <div className="stat-card"><p className="text-xs font-medium text-muted uppercase">Total Vendas Hoje</p><p className="text-2xl font-bold text-dark mt-1">{orders.filter(o => o.status === 'fechada' && new Date(o.created_at).toISOString().split('T')[0] === new Date().toISOString().split('T')[0]).reduce((a,o) => a + Number(o.total_amount||0), 0).toFixed(2)}€</p></div>
       </div>
 
-      <div className="flex items-center gap-2 bg-white border border-border-main px-4 py-2.5 rounded-lg"><Search className="w-4 h-4 text-muted" /><input type="text" placeholder="Pesquisar..." value={search} onChange={e => setSearch(e.target.value)} className="bg-transparent border-none outline-none text-sm w-full text-dark placeholder:text-muted" /></div>
+      <div className="flex flex-wrap items-center gap-3 bg-white border border-border-main p-3 rounded-lg">
+        <div className="flex items-center gap-2 flex-1 min-w-[200px] px-3 py-2 bg-slate-50 rounded-md">
+          <Search className="w-4 h-4 text-muted" />
+          <input type="text" placeholder="Pesquisar cliente..." value={search} onChange={e => setSearch(e.target.value)} className="bg-transparent border-none outline-none text-sm w-full text-dark placeholder:text-muted" />
+        </div>
+        <div className="flex items-center gap-2">
+          <label className="text-xs text-muted font-medium">De:</label>
+          <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="px-3 py-2 rounded-md border border-border-main bg-white text-sm text-dark outline-none focus:ring-1 focus:ring-primary" />
+          <label className="text-xs text-muted font-medium ml-2">Até:</label>
+          <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="px-3 py-2 rounded-md border border-border-main bg-white text-sm text-dark outline-none focus:ring-1 focus:ring-primary" />
+        </div>
+      </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map(o => {
