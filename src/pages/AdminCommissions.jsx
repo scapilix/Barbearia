@@ -1,8 +1,9 @@
 import React, { useState, useEffect, Component } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../lib/supabase';
-import { DollarSign, Users, CheckCircle, X, Calendar, Clock, Euro, TrendingUp, ArrowLeft, Filter } from 'lucide-react';
+import { DollarSign, Users, CheckCircle, X, Calendar, Clock, Euro, TrendingUp, ArrowLeft, Filter, Search, FileText } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import CustomDatePicker from '../components/CustomDatePicker';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -38,11 +39,16 @@ const AdminCommissionsContent = () => {
   const [team, setTeam] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
-  const [dateFilter, setDateFilter] = useState('mes');
-  const [selectedMonth, setSelectedMonth] = useState(() => {
-    const now = new Date();
-    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  const [startDate, setStartDate] = useState(() => {
+    const today = new Date();
+    return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-01`;
   });
+  const [endDate, setEndDate] = useState(() => {
+    const today = new Date();
+    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+    return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${lastDay}`;
+  });
+  const [search, setSearch] = useState('');
 
   // Popup state
   const [selectedMember, setSelectedMember] = useState(null);
@@ -67,20 +73,11 @@ const AdminCommissionsContent = () => {
       const fetchedCommissions = c.data || [];
       setCommissions(fetchedCommissions);
       setTeam(t.data || []);
-      
-      // Auto-select the month of the most recent commission if none exist for current month
-      if (fetchedCommissions.length > 0) {
-        const latestDate = fetchedCommissions[0].date;
-        if (latestDate) {
-          const [y, m] = latestDate.split('-');
-          setSelectedMonth(`${y}-${m}`);
-        }
-      }
     } catch (e) { console.error(e); }
     setLoading(false);
   };
 
-  useEffect(() => { fetchData(); }, [user]);
+  useEffect(() => { fetchData(); }, [user, startDate, endDate]);
 
   const markPaid = async (id) => {
     await supabase.from('commissions').update({ status: 'pago' }).eq('id', id);
@@ -102,34 +99,11 @@ const AdminCommissionsContent = () => {
     }
   };
 
-  // Date filtering
-  const getDateRange = () => {
-    const now = new Date();
-    if (dateFilter === 'dia') {
-      const today = now.toISOString().split('T')[0];
-      return { start: today, end: today };
-    } else if (dateFilter === 'semana') {
-      const dayOfWeek = now.getDay();
-      const monday = new Date(now);
-      monday.setDate(now.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
-      const sunday = new Date(monday);
-      sunday.setDate(monday.getDate() + 6);
-      return { start: monday.toISOString().split('T')[0], end: sunday.toISOString().split('T')[0] };
-    } else {
-      // Month from selectedMonth
-      const [y, m] = selectedMonth.split('-').map(Number);
-      const start = `${y}-${String(m).padStart(2, '0')}-01`;
-      const lastDay = new Date(y, m, 0).getDate();
-      const end = `${y}-${String(m).padStart(2, '0')}-${lastDay}`;
-      return { start, end };
-    }
-  };
-
-  const { start, end } = getDateRange();
   const filteredCommissions = commissions.filter(c => {
     const matchStatus = filter === 'all' || c.status === filter;
-    const matchDate = c.date >= start && c.date <= end;
-    return matchStatus && matchDate;
+    const dateMatch = (!startDate || c.date >= startDate) && (!endDate || c.date <= endDate);
+    const searchMatch = !search || c.member_name?.toLowerCase().includes(search.toLowerCase());
+    return matchStatus && dateMatch && searchMatch;
   });
 
   const totalPending = filteredCommissions.filter(c => c.status === 'pendente').reduce((a, c) => a + Number(c.amount || 0), 0);
@@ -144,8 +118,8 @@ const AdminCommissionsContent = () => {
         .from('bookings')
         .select('*, services(name, price), clients(name)')
         .eq('team_member_id', member.id)
-        .gte('booking_date', start)
-        .lte('booking_date', end)
+        .gte('booking_date', startDate)
+        .lte('booking_date', endDate)
         .order('booking_date', { ascending: false });
       setMemberBookings(data || []);
     } catch (e) {
@@ -168,18 +142,32 @@ const AdminCommissionsContent = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mb-2">
         <div><h1 className="text-2xl font-bold text-dark">Comissões</h1><p className="text-muted text-sm mt-1">Gestão de comissões da equipa</p></div>
-        {/* Date Filter */}
-        <div className="flex items-center gap-3">
-          <div className="flex gap-1 bg-white border border-border-main rounded-lg p-1">
-            {[{ k: 'dia', l: 'Dia' }, { k: 'semana', l: 'Semana' }, { k: 'mes', l: 'Mês' }].map(({ k, l }) => (
-              <button key={k} onClick={() => setDateFilter(k)} className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${dateFilter === k ? 'bg-primary text-white' : 'text-muted hover:bg-slate-50'}`}>{l}</button>
-            ))}
+      </div>
+      {/* Enhanced Filters Box (Matches Orders & Bookings) */}
+      <div className="flex flex-wrap items-center gap-3 bg-white border border-border-main p-3 rounded-lg">
+        <div className="flex items-center gap-2 flex-1 min-w-[200px] px-3 py-2 bg-slate-50 rounded-md">
+          <Search className="w-4 h-4 text-muted" />
+          <input type="text" placeholder="Pesquisar profissional..." value={search} onChange={e => setSearch(e.target.value)} className="bg-transparent border-none outline-none text-sm w-full text-dark placeholder:text-muted" />
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
+            <div className="w-44">
+              <CustomDatePicker 
+                  value={startDate} 
+                  onChange={setStartDate} 
+                  placeholder="Data inicial" 
+              />
+            </div>
+            <div className="w-44">
+              <CustomDatePicker 
+                  value={endDate} 
+                  onChange={setEndDate} 
+                  placeholder="Data final" 
+              />
+            </div>
           </div>
-          {dateFilter === 'mes' && (
-            <input type="month" value={selectedMonth} onChange={e => setSelectedMonth(e.target.value)} className="luxury-input text-sm py-1.5 px-3 w-auto" />
-          )}
         </div>
       </div>
 
@@ -246,7 +234,17 @@ const AdminCommissionsContent = () => {
                 <td className="px-6 py-4 text-right text-sm font-bold text-dark">{Number(c.amount || 0).toFixed(2)}€</td>
               </tr>
             ))}
-            {filteredCommissions.length === 0 && <tr><td colSpan="5" className="px-6 py-12 text-center text-muted">{loading ? 'A carregar...' : 'Nenhuma comissão neste período'}</td></tr>}
+            {filteredCommissions.length === 0 && (
+                <tr>
+                    <td colSpan="5" className="p-0">
+                        <div className="p-16 flex flex-col items-center justify-center text-center bg-white/50 border-dashed border-2 m-4 rounded-xl">
+                            <FileText size={48} className="text-slate-200 mb-4" />
+                            <h3 className="text-slate-800 font-bold text-lg mb-2">Nenhuma Comissão</h3>
+                            <p className="text-slate-500 text-sm max-w-sm mx-auto">Não foi encontrada nenhuma comissão para o profissional ou datas selecionadas.</p>
+                        </div>
+                    </td>
+                </tr>
+            )}
           </tbody>
         </table>
       </div>
@@ -266,7 +264,7 @@ const AdminCommissionsContent = () => {
                   )}
                   <div>
                     <h2 className="text-lg font-bold text-dark">{selectedMember.name}</h2>
-                    <p className="text-xs text-muted">Comissão: {selectedMember.commission_rate || 0}% · {dateFilter === 'dia' ? 'Hoje' : dateFilter === 'semana' ? 'Esta semana' : selectedMonth}</p>
+                    <p className="text-xs text-muted">Comissão: {selectedMember.commission_rate || 0}%</p>
                   </div>
                 </div>
                 <button onClick={() => setSelectedMember(null)} className="p-2 rounded-lg hover:bg-slate-100 text-muted"><X size={18} /></button>
@@ -296,7 +294,10 @@ const AdminCommissionsContent = () => {
                 {loadingBookings ? (
                   <div className="p-12 text-center text-muted">A carregar...</div>
                 ) : memberBookings.length === 0 ? (
-                  <div className="p-12 text-center text-muted">Sem atendimentos neste período</div>
+                  <div className="p-12 text-center text-muted flex flex-col items-center">
+                      <FileText size={40} className="text-slate-300 mb-3" />
+                      <p>Sem atendimentos neste período</p>
+                  </div>
                 ) : (
                   <div className="divide-y divide-border-main">
                     {memberBookings.map(b => (
