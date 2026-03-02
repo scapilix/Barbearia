@@ -287,7 +287,7 @@ const AdminBookings = () => {
                   const dateStr = day.toISOString().split('T')[0];
                   const dayBookings = bookings.filter(b => 
                     b.booking_date === dateStr && 
-                    b.booking_time === time && 
+                    b.booking_time?.substring(0, 5) === time && 
                     (!filterTeamMember || b.team_member_id === filterTeamMember)
                   );
 
