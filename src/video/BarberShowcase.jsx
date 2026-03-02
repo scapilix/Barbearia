@@ -70,13 +70,14 @@ const ImageScene = ({ src }) => {
 };
 
 // ─── Main Sequence Composition ────────────────────────────────────
-export const BarberShowcase = () => {
-  // URLs for 4 barbershop photos (to bypass mp4 loading issues on Vercel)
+export const BarberShowcase = ({ images }) => {
+  // URLs for 4 barbershop photos
+  // Use dynamic images from props (Admin panel), fallback to default Pexels if missing
   const photos = [
-    "https://images.pexels.com/photos/1805600/pexels-photo-1805600.jpeg?auto=compress&cs=tinysrgb&w=1920",
-    "https://images.pexels.com/photos/1319459/pexels-photo-1319459.jpeg?auto=compress&cs=tinysrgb&w=1920",
-    "https://images.pexels.com/photos/2068884/pexels-photo-2068884.jpeg?auto=compress&cs=tinysrgb&w=1920",
-    "https://images.pexels.com/photos/1319461/pexels-photo-1319461.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    images?.hero_bg1 || "https://images.pexels.com/photos/1805600/pexels-photo-1805600.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    images?.hero_bg2 || "https://images.pexels.com/photos/1319459/pexels-photo-1319459.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    images?.hero_bg3 || "https://images.pexels.com/photos/2068884/pexels-photo-2068884.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    images?.hero_float1 || "https://images.pexels.com/photos/1319461/pexels-photo-1319461.jpeg?auto=compress&cs=tinysrgb&w=1920",
   ];
 
   // Each scene lasts 150 frames (5 seconds at 30fps)
