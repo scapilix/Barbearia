@@ -95,17 +95,60 @@ const AdminSettings = () => {
     { id: 'images', label: 'Imagens do Site', icon: <ImageIcon size={16} /> },
   ];
 
-  // Helper function to read file as base64
-  const handleImageUpload = (e, key) => {
+  // Helper function to compress and encode image to base64
+  const compressImage = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          
+          // Max dimension to prevent huge payloads
+          const MAX_SIZE = 1200;
+          if (width > height && width > MAX_SIZE) {
+            height *= MAX_SIZE / width;
+            width = MAX_SIZE;
+          } else if (height > MAX_SIZE) {
+            width *= MAX_SIZE / height;
+            height = MAX_SIZE;
+          }
+          
+          canvas.width = Math.round(width);
+          canvas.height = Math.round(height);
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // Compress to JPEG with 0.7 quality to fit under Supabase 1MB API limit
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+          resolve(dataUrl);
+        };
+        img.onerror = (err) => reject(err);
+      };
+      reader.onerror = (err) => reject(err);
+    });
+  };
+
+  const handleImageUpload = async (e, key) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        updateImage(key, reader.result);
+      if (file.size > 20 * 1024 * 1024) {
+        alert('A imagem é demasiado grande (máximo 20MB).');
+        return;
+      }
+      try {
+        const compressedBase64 = await compressImage(file);
+        updateImage(key, compressedBase64);
         setSaved(true);
         setTimeout(() => setSaved(false), 2000);
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        console.error("Compression failed", err);
+        alert('Erro ao processar imagem. Tente outra.');
+      }
     }
   };
 
