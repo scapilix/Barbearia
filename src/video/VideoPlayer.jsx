@@ -3,8 +3,8 @@ import { Player } from '@remotion/player';
 import { BarberShowcase } from './BarberShowcase';
 import { useImage } from '../hooks/useImage';
 
-// Use standard duration for a looping background video, Remotion videos need a finite duration
-const TOTAL_FRAMES = 1200; // 40 seconds at 30fps
+// 4 scenes * 150 frames = 600 frames (20 seconds at 30fps)
+const TOTAL_FRAMES = 600;
 
 const VideoPlayer = () => {
   const { images } = useImage();

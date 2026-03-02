@@ -1,3 +1,4 @@
+import React from "react";
 import {
   AbsoluteFill,
   interpolate,
@@ -5,6 +6,8 @@ import {
   spring,
   useCurrentFrame,
   useVideoConfig,
+  Series,
+  Img,
 } from "remotion";
 import { Video } from "@remotion/media";
 
@@ -41,36 +44,101 @@ const GoldLine = ({ delay = 0 }) => {
   return <div style={{ width, height: 1, background: GOLD, margin: "20px 0" }} />;
 };
 
-export const BarberShowcase = () => {
-  // Using a solid generic barbershop video from Pexels (Direct CDN)
-  const videoUrl = "https://videos.pexels.com/video-files/3998429/3998429-hd_1920_1080_30fps.mp4";
-
+// ─── Reusable Video Scene ─────────────────────────────────────────
+const VideoScene = ({ src }) => {
   return (
-    <AbsoluteFill style={{ background: DARK }}>
+    <AbsoluteFill>
       <Video
-        src={videoUrl}
-        loop
+        src={src}
         muted
         style={{
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          filter: "brightness(0.35)", // Dim the video to emphasize the text
+          filter: "brightness(0.35)",
         }}
       />
+    </AbsoluteFill>
+  );
+};
+
+// ─── Reusable Image Scene (Interior) with Ken Burns ───────────────
+const ImageScene = ({ src }) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+
+  const scale = interpolate(frame, [0, durationInFrames], [1.0, 1.15], {
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.quad),
+  });
+
+  return (
+    <AbsoluteFill>
+      <Img
+        src={src}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          transform: `scale(${scale})`,
+          filter: "brightness(0.25)",
+        }}
+      />
+    </AbsoluteFill>
+  );
+};
+
+// ─── Main Sequence Composition ────────────────────────────────────
+export const BarberShowcase = () => {
+  // URLs for 3 barber videos and 1 interior photo
+  const videos = [
+    "https://videos.pexels.com/video-files/3998429/3998429-hd_1920_1080_30fps.mp4",
+    "https://videos.pexels.com/video-files/7036666/7036666-uhd_2732_1440_25fps.mp4",
+    "https://videos.pexels.com/video-files/8533224/8533224-uhd_2560_1440_25fps.mp4",
+  ];
+  const interiorPhoto = "https://images.pexels.com/photos/1319461/pexels-photo-1319461.jpeg?auto=compress&cs=tinysrgb&w=1920";
+
+  // Each scene lasts 150 frames (5 seconds at 30fps)
+  const SCENE_DURATION = 150;
+
+  return (
+    <AbsoluteFill style={{ background: DARK }}>
       
-      {/* Decorative Gradient Vignette */}
+      {/* Background Media Sequence */}
+      <AbsoluteFill>
+        <Series>
+          {/* Transition between scenes with overlap if possible, but Series handles it clean */}
+          <Series.Sequence durationInFrames={SCENE_DURATION}>
+            <VideoScene src={videos[0]} />
+          </Series.Sequence>
+          
+          <Series.Sequence durationInFrames={SCENE_DURATION}>
+            <VideoScene src={videos[1]} />
+          </Series.Sequence>
+          
+          <Series.Sequence durationInFrames={SCENE_DURATION}>
+            <VideoScene src={videos[2]} />
+          </Series.Sequence>
+
+          <Series.Sequence durationInFrames={SCENE_DURATION}>
+            <ImageScene src={interiorPhoto} />
+          </Series.Sequence>
+        </Series>
+      </AbsoluteFill>
+      
+      {/* Decorative Gradient Vignette overlay on top of all media */}
       <AbsoluteFill
         style={{
           background: `linear-gradient(to bottom,
             rgba(13,12,10,0.50) 0%,
-            rgba(13,12,10,0.08) 35%,
-            rgba(13,12,10,0.08) 65%,
-            rgba(13,12,10,0.72) 100%)`,
+            rgba(13,12,10,0.01) 35%,
+            rgba(13,12,10,0.01) 65%,
+            rgba(13,12,10,0.80) 100%)`,
           pointerEvents: "none",
         }}
       />
 
+      {/* Static Overlay Text */}
       <AbsoluteFill
         style={{
           display: "flex",
@@ -90,7 +158,7 @@ export const BarberShowcase = () => {
               margin: 0,
             }}
           >
-            Bem-vindo à Elegância
+            A Excelência do Corte
           </p>
         </FadeUp>
 
@@ -124,7 +192,7 @@ export const BarberShowcase = () => {
               textAlign: "center",
             }}
           >
-            Corte Clássico · Degrade Fade · Barboterapia
+            Um ambiente exclusivo para cavalheiros.
           </p>
         </FadeUp>
         
@@ -134,7 +202,7 @@ export const BarberShowcase = () => {
                 display: "flex",
                 gap: 24,
                 marginTop: 40,
-                pointerEvents: "auto",
+                pointerEvents: "auto", // allow clicking
               }}
             >
               <a
@@ -153,11 +221,10 @@ export const BarberShowcase = () => {
                   boxShadow: `0 8px 32px rgba(225, 174, 45, 0.25)`,
                 }}
               >
-                Marcar Serviço
+                Agendar Agora
               </a>
             </div>
           </FadeUp>
-
       </AbsoluteFill>
     </AbsoluteFill>
   );

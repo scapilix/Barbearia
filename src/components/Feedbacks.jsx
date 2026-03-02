@@ -4,25 +4,25 @@ import { Star, Quote } from 'lucide-react';
 
 const reviews = [
   {
-    name: 'Patrícia Duarte',
+    name: 'Tiago Ribeiro',
     role: 'Cliente Verificada',
     text: 'A barboterapia mudou o meu visual. O detalhe e a perfeição que a equipa coloca no trabalho é algo único. O espaço é puro conforto!',
     stars: 5,
-    avatar: 'https://i.pravatar.cc/150?u=patricia'
+    avatar: 'https://i.pravatar.cc/150?u=tiago'
   },
   {
-    name: 'Margarida Santos',
+    name: 'Gonçalo Martins',
     role: 'Cliente Habitual',
     text: 'A barboterapia mudou o meu visual. O detalhe e a perfeição que a equipa coloca no trabalho é algo único. O espaço é puro conforto!',
     stars: 5,
-    avatar: 'https://i.pravatar.cc/150?u=margarida'
+    avatar: 'https://i.pravatar.cc/150?u=goncalo'
   },
   {
-    name: 'Carolina Silva',
+    name: 'Carlos Almeida',
     role: 'Cliente Verificada',
     text: 'O fade e platinado superaram as minhas expectativas. Um serviço de excelência e muito profissionalismo.',
     stars: 5,
-    avatar: 'https://i.pravatar.cc/150?u=carolina'
+    avatar: 'https://i.pravatar.cc/150?u=carlos'
   }
 ];
 
@@ -64,11 +64,11 @@ const Feedbacks = () => {
               
               <div className="flex items-center gap-4 relative z-10">
                 <div className="w-12 h-12 bg-primary rounded-full overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&auto=format&fit=crop" alt="Client" />
+                  <img src="https://images.pexels.com/photos/896695/pexels-photo-896695.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Client" />
                 </div>
                 <div>
-                  <div className="font-bold text-sm">Helena Matos</div>
-                  <div className="text-[10px] text-primary font-bold uppercase tracking-widest">Fashion Curator</div>
+                  <div className="font-bold text-sm">Miguel Silva</div>
+                  <div className="text-[10px] text-primary font-bold uppercase tracking-widest">Empreendedor</div>
                 </div>
               </div>
             </div>
