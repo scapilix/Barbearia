@@ -16,7 +16,7 @@ const faqs = [
     answer: 'Sim, dispomos de pacotes Bridal Styling exclusivos que incluem consultoria de imagem para Barba, prova de design e acompanhamento personalizado para garantir que as suas mãos brilham no grande dia.'
   },
   {
-    question: 'Quanto tempo dura uma Corte Russa?',
+    question: 'Quanto tempo dura uma Corte Degradê?',
     answer: 'Dada a precisão e detalhe deste serviço, a duração média é de 90 minutos. Este tempo permite um tratamento profundo das cutículas e a aplicação técnica perfeita do reforço.'
   }
 ];

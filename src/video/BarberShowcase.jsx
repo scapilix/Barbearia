@@ -142,7 +142,7 @@ const Scene1 = ({ PHOTOS }) => (
             textAlign: 'center',
           }}
         >
-          Corte Russa · Barber Art · Gel Extensions
+          Corte Degradê · Alinhamento Perfeito · Barba à Navalha
         </p>
       </FadeUp>
     </AbsoluteFill>

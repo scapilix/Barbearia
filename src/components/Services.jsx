@@ -8,10 +8,10 @@ const Services = () => {
 
   const services = [
     {
-      title: 'Corte Russa',
+      title: 'Corte Degradê',
       price: '65€',
       duration: '90 min',
-      description: 'Cuidado profundo das cutículas e reforço da unha natural para resultados impecáveis e duradouros.',
+      description: 'Cuidado profundo das cutículas e reforço da cabelo natural para resultados impecáveis e duradouros.',
       image: images.service_1
     },
     {
@@ -22,7 +22,7 @@ const Services = () => {
       image: images.service_2
     },
     {
-      title: 'Barber Art Artistry',
+      title: 'Alinhamento Perfeito Artistry',
       price: 'A partir de 15€',
       duration: '30+ min',
       description: 'Designs manuais exclusivos, pedrarias luxuosas e texturas artísticas personalizadas.',

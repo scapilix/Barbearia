@@ -8,12 +8,12 @@ const Portfolio = () => {
   const portfolioImages = [
     {
       src: images.hero_bg1,
-      category: 'Corte Russa',
+      category: 'Corte Degradê',
       title: 'Minimalist Nude'
     },
     {
       src: images.hero_bg2,
-      category: 'Barber Art',
+      category: 'Alinhamento Perfeito',
       title: 'Emerald Luxury'
     },
     {
@@ -23,7 +23,7 @@ const Portfolio = () => {
     },
     {
       src: images.hero_float1,
-      category: 'Barber Art',
+      category: 'Alinhamento Perfeito',
       title: 'Golden Accents'
     },
     {
@@ -33,7 +33,7 @@ const Portfolio = () => {
     },
     {
       src: images.about_detail,
-      category: 'Corte Russa',
+      category: 'Corte Degradê',
       title: 'Perfect Finish'
     }
   ];

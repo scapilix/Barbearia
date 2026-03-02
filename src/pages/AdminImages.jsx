@@ -121,9 +121,9 @@ const AdminImages = () => {
       title: "Serviços",
       description: "Imagens representativas dos serviços oferecidos.",
       keys: [
-        { key: 'service_1', label: 'Serviço 1 (Corte Russa)' },
-        { key: 'service_2', label: 'Serviço 2 (Barber Art Ouro)' },
-        { key: 'service_3', label: 'Serviço 3 (Extensões Gel)' },
+        { key: 'service_1', label: 'Serviço 1 (Corte Degradê)' },
+        { key: 'service_2', label: 'Serviço 2 (Alinhamento Perfeito Ouro)' },
+        { key: 'service_3', label: 'Serviço 3 (Barba à Navalha)' },
         { key: 'service_4', label: 'Serviço 4 (Máquina Spa)' }
       ]
     },

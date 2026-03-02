@@ -6,7 +6,7 @@ const reviews = [
   {
     name: 'Patrícia Duarte',
     role: 'Cliente Verificada',
-    text: 'A Corte Russa mudou a saúde das minhas Barba. O detalhe e a perfeição que a Francisco coloca no trabalho é algo que nunca vi antes. O salão é puro luxo!',
+    text: 'A Corte Degradê mudou a saúde das minhas Barba. O detalhe e a perfeição que a Francisco coloca no trabalho é algo que nunca vi antes. O salão é puro luxo!',
     stars: 5,
     avatar: 'https://i.pravatar.cc/150?u=patricia'
   },

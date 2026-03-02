@@ -21,7 +21,7 @@ const AboutUs = () => {
             >
               <img
                 src={images.about_main}
-                alt="High-end Barber Artistry"
+                alt="High-end Alinhamento Perfeitoistry"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
               />
             </Motion.div>
@@ -62,13 +62,13 @@ const AboutUs = () => {
                 Fundado com a visão de redefinir o conceito de Corte de luxo, o TO Barber Salon dedica-se à excelência em cada gesto. Especializamo-nos na técnica russa e em Barber art de alta performance.
               </p>
               <p>
-                O nosso espaço foi concebido para ser um santuário de beleza e relaxamento, onde a sofisticação encontra a inovação. Utilizamos apenas produtos de classe mundial para garantir resultados impecáveis e duradouros.
+                O nosso espaço foi concebido para ser um espaço moderno para cavalheiros, onde a sofisticação encontra a inovação. Utilizamos apenas produtos de classe mundial para garantir resultados impecáveis e duradouros.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
               {[
-                'Corte Russa Certificada',
+                'Corte Degradê Certificada',
                 'Ambiente Premium e Seguro',
                 'Design Personalizado',
                 'Esterilização de Grau Médico'
